@@ -50,7 +50,6 @@ _: {
       ];
 
       environment.systemPackages = with pkgs; [
-        ffmpeg-full
         libva-utils
         vdpauinfo
       ];
