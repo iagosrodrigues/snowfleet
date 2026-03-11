@@ -5,7 +5,7 @@ let
     let
       inherit (pkgs.stdenv.hostPlatform) system;
       inherit (pkgs) lib;
-      opencode = inputs.opencode.packages.${system}.opencode;
+      inherit (inputs.opencode.packages.${system}) opencode;
     in
     pkgs.rustPlatform.buildRustPackage (finalAttrs: {
       pname = "opencode-desktop";
