@@ -28,7 +28,7 @@ let
 
       src = fetchurl {
         url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-${release.arch}.AppImage";
-        hash = release.hash;
+        inherit (release) hash;
       };
 
       appimageContents = appimageTools.extractType2 {

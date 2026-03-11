@@ -3,15 +3,15 @@ let
   opencodeDesktopPackage =
     { pkgs }:
     let
-      system = pkgs.stdenv.hostPlatform.system;
-      lib = pkgs.lib;
+      inherit (pkgs.stdenv.hostPlatform) system;
+      inherit (pkgs) lib;
       opencode = inputs.opencode.packages.${system}.opencode;
     in
     pkgs.rustPlatform.buildRustPackage (finalAttrs: {
       pname = "opencode-desktop";
       inherit (opencode) version src;
-      node_modules = opencode.node_modules;
-      patches = if opencode ? patches then opencode.patches else [ ];
+      inherit (opencode) node_modules;
+      patches = opencode.patches or [ ];
 
       cargoRoot = "packages/desktop/src-tauri";
       cargoLock = {

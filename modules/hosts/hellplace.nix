@@ -4,7 +4,7 @@
   ...
 }:
 let
-  nixos = config.flake.modules.nixos;
+  inherit (config.flake.modules) nixos;
   hm = config.flake.modules.homeManager;
 
   sharedNixosModules = with nixos; [

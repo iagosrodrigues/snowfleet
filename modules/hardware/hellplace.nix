@@ -44,13 +44,17 @@ _: {
 
       # AMD hardware
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-      hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+      hardware = {
+        cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+        amdgpu.opencl.enable = true;
+        # nixpkgs.config.rocmSupport = true;
 
-      # AMD ROCm GPU packages
-      hardware.graphics.extraPackages = with pkgs; [
-        rocmPackages.clr.icd
-        rocmPackages.rocm-runtime
-      ];
+        # AMD ROCm GPU packages
+        graphics.extraPackages = with pkgs; [
+          rocmPackages.clr.icd
+          rocmPackages.rocm-runtime
+        ];
+      };
 
       i18n.inputMethod = {
         enable = true;

@@ -3,9 +3,11 @@
   flake.modules.nixos.kde =
     { pkgs, ... }:
     {
-      services.desktopManager.plasma6.enable = true;
-      services.displayManager.plasma-login-manager.enable = true;
-      services.xserver.enable = false;
+      services = {
+        desktopManager.plasma6.enable = true;
+        displayManager.plasma-login-manager.enable = true;
+        xserver.enable = false;
+      };
 
       environment.plasma6.excludePackages = with pkgs.kdePackages; [
         elisa
