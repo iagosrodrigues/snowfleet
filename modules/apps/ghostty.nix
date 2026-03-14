@@ -5,7 +5,7 @@ _: {
       enableFishIntegration = true;
 
       settings = {
-        background-opacity = 0.8;
+        background-opacity = 1;
         command = "/etc/profiles/per-user/iago/bin/fish";
         font-family = "Jetbrains Mono";
         font-size = 18;

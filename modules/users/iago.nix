@@ -45,24 +45,27 @@ in
           };
 
           packages = with pkgs; [
-            libreoffice-still
-            _1password-cli
-            android-tools
             (btop.overrideAttrs (old: {
               cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DBTOP_GPU=ON" ];
             }))
+            _1password-cli
+            android-tools
             cargo
             clang
+            claude-code
+            codex
             davinci-resolve-studio
             discord
             eza
             fd
             ffmpeg
             fuzzel
+            gemini-cli
             gh
             inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
             jetbrains.idea
             jujutsu
+            libreoffice-still
             lmstudio
             nil
             nixd

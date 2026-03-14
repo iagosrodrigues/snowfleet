@@ -242,6 +242,10 @@ Hosts use **selective composition** — explicitly listing which modules to incl
 - Do not commit plaintext secrets, hashes, tokens, or private keys in `.nix` files.
 - Prefer storing personal Git identity/account values in agenix-backed files (e.g., include file under `/run/agenix/...`) instead of inline config.
 
+## General Guidance for Agents
+
+- **When in doubt, search first**: Before assuming a package name, version, tag, or API, verify it using a web search (e.g. on ollama.com, nixpkgs, GitHub). Confidently wrong answers are worse than asking. This has caused real issues in this repo — e.g. asserting `qwen3.5` didn't exist when it did.
+
 ## Common Pitfalls
 
 - **New file not picked up**: Run `git add <file>` — flake evaluation only sees git-tracked files.
