@@ -130,6 +130,9 @@ _: {
 # Validate the flake (primary check)
 nix flake check
 
+# Run the same checks as GitHub Actions locally
+./scripts/check-ci
+
 # Build without switching (safe, no system changes)
 nixos-rebuild build --flake .#hellplace
 
@@ -152,6 +155,15 @@ nix develop -c deadnix .
 # Update all flake inputs
 nix flake update
 ```
+
+To enable the versioned Git hooks in this repository:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+With that in place, `pre-commit` formats staged `.nix` files and `pre-push`
+runs the same checks as `.github/workflows/check.yml`.
 
 ## Secrets management
 

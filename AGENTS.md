@@ -17,6 +17,9 @@ How loading works — two distinct steps:
 # Validate the flake (syntax + evaluation — runs this frequently)
 nix flake check
 
+# Run the same checks as GitHub Actions locally
+./scripts/check-ci
+
 # Build without switching (safe, no system changes)
 nixos-rebuild build --flake .#hellplace
 
@@ -47,6 +50,11 @@ nix flake lock --update-input nixpkgs
 ```
 
 There are no unit tests, no Makefile, and no justfile. `nix flake check` is the primary validation tool.
+
+Versioned Git hooks live in `.githooks/`. Enable them locally with:
+```bash
+git config core.hooksPath .githooks
+```
 
 Fish shell aliases (available on the system, not in dev shell):
 ```

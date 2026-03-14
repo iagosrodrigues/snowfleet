@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root_dir="$(git rev-parse --show-toplevel)"
+cd "$root_dir"
+
+staged_nix_files=()
+while IFS= read -r path; do
+  staged_nix_files+=("$path")
+done < <(git diff --cached --name-only --diff-filter=ACMR -- '*.nix')
+
+if [ "${#staged_nix_files[@]}" -eq 0 ]; then
+  exit 0
+fi
+
+echo "Formatting staged Nix files"
+nix fmt -- "${staged_nix_files[@]}"
+
+echo "Restaging formatted files"
+git add -- "${staged_nix_files[@]}"

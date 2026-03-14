@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+root_dir="$(git rev-parse --show-toplevel)"
+cd "$root_dir"
+
+echo "[1/4] nix flake check --no-build"
+nix flake check --no-build
+
+echo "[2/4] nix run nixpkgs#nixfmt-tree -- --ci ."
+nix run nixpkgs#nixfmt-tree -- --ci .
+
+echo "[3/4] nix develop -c deadnix --fail ."
+nix develop -c deadnix --fail .
+
+echo "[4/4] nix develop -c statix check ."
+nix develop -c statix check .
