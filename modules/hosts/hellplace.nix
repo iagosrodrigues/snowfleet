@@ -150,6 +150,8 @@ let
           ".config/obs-studio"
           ".config/opencode"
           ".config/comfy-ui"
+          ".claude"
+          ".codex"
 
           ".icons"
 
@@ -166,6 +168,9 @@ let
           ".ollama"
           ".lmstudio"
           ".config/LM Studio"
+        ];
+        files = [
+          ".claude.json"
         ];
       };
     }

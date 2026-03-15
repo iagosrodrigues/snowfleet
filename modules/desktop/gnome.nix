@@ -47,7 +47,7 @@ _: {
         gnomeExtensions.astra-monitor
         gnomeExtensions.bluetooth-battery-meter
         gnomeExtensions.clipboard-indicator
-        gnomeExtensions.dash-to-dock
+        gnomeExtensions.dash-to-panel
         gnomeExtensions.simpleweather
         gnome-extension-manager
         gnome-shell-extensions
@@ -67,7 +67,7 @@ _: {
             "Bluetooth-Battery-Meter@maniacx.github.com"
             "appindicatorsupport@rgcjonas.gmail.com"
             "clipboard-indicator@tudmotu.com"
-            "dash-to-dock@micxgx.gmail.com"
+            "dash-to-panel@jderose9.github.com"
             "monitor@astraext.github.io"
             "user-theme@gnome-shell-extensions.gcampax.github.com"
           ];
@@ -158,17 +158,12 @@ _: {
           repeat-interval = lib.gvariant.mkUint32 20;
         };
 
-        "org/gnome/shell/extensions/dash-to-dock" = {
-          background-opacity = 0.8;
-          custom-theme-shrink = true;
-          dash-max-icon-size = 48;
-          dock-position = "BOTTOM";
-          height-fraction = 0.9;
-          hot-keys = false;
-          intellihide-mode = "MAXIMIZED_WINDOWS";
-          preferred-monitor = -2;
-          preferred-monitor-by-connector = "DP-1";
-          show-apps-at-top = true;
+        "org/gnome/shell/extensions/dash-to-panel" = {
+          panel-positions = ''{"0":"BOTTOM"}'';
+          panel-sizes = ''{"0":48}'';
+          taskbar-position = "CENTERED_MONITOR";
+          show-appmenu-btn = false;
+          show-show-apps-button = true;
         };
       };
 
