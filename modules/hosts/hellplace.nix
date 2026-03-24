@@ -16,7 +16,7 @@ let
     iago
     io-schedulers
     networking
-    niri
+    # niri
     nix-settings
     nixpkgs-config
     ollama
@@ -40,8 +40,8 @@ let
     personal-git
     gnome
     helium-browser
-    niri
-    niri-config
+    # niri
+    # niri-config
     nixvim
     shell
     ssh
