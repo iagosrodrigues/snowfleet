@@ -1,5 +1,5 @@
 _: {
-  flake.modules.nixos.hellplace-hardware =
+  flake.modules.nixos.hellplace =
     {
       lib,
       pkgs,
@@ -20,6 +20,8 @@ _: {
 
         kernelPackages = pkgs.linuxPackages_latest;
 
+        extraModulePackages = [ config.boot.kernelPackages.new-lg4ff ];
+
         initrd = {
           systemd.enable = true;
           availableKernelModules = [
@@ -34,8 +36,14 @@ _: {
 
         kernelModules = [
           "amdgpu"
+          "hid-logitech-new"
+          "hid-logitech-hidpp"
           "kvm-amd"
           "uvcvideo"
+        ];
+
+        kernelParams = [
+          "amdgpu.cwsr_enable=0"
         ];
       };
 
@@ -75,6 +83,13 @@ _: {
           enable = true;
         };
       };
+
+      services.udev.packages = [ pkgs.oversteer ];
+
+      # services.udev.extraRules = ''
+      #   # Logitech G923 (PS/PC)
+      #   ACTION=="add", SUBSYSTEMS=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c266", MODE="0660", GROUP="users"
+      # '';
 
       system.stateVersion = "25.05";
     };
