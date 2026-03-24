@@ -58,7 +58,12 @@ _: {
     };
 
   flake.modules.homeManager.gnome =
-    { pkgs, lib, ... }:
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     {
       dconf.settings = {
         "org/gnome/shell" = {
@@ -170,6 +175,7 @@ _: {
       gtk = {
         enable = true;
         colorScheme = "dark";
+        gtk4.theme = config.gtk.theme;
 
         cursorTheme = {
           package = pkgs.apple-cursor;
