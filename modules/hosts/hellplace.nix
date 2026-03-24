@@ -13,6 +13,7 @@ let
     fonts
     gnome
     home-manager-base
+    impermanence-base
     iago
     io-schedulers
     networking
@@ -85,13 +86,7 @@ let
         users.users.iago.hashedPasswordFile = config.age.secrets.iago-password.path;
 
         environment.persistence."/persist" = {
-          hideMounts = true;
           directories = [
-            # Core system state
-            "/var/log"
-            "/var/lib/nixos"
-            "/var/lib/systemd/coredump"
-
             # Network
             "/var/lib/NetworkManager"
             "/etc/NetworkManager/system-connections"
@@ -102,16 +97,12 @@ let
 
             # Services
             "/var/lib/cups"
-            "/var/lib/AccountsService"
             "/var/lib/private/ollama"
 
             # Audio (persistent volume levels)
             "/var/lib/pipewire"
           ];
           files = [
-            "/etc/machine-id"
-            "/etc/adjtime"
-
             # SSH host keys (prevent fingerprint change on reboot)
             "/etc/ssh/ssh_host_rsa_key"
             "/etc/ssh/ssh_host_rsa_key.pub"
