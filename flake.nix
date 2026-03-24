@@ -1,25 +1,30 @@
 {
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
+    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    opencode.url = "github:anomalyco/opencode/v1.2.21";
+    opencode.url = "github:anomalyco/opencode/v1.3.0";
     nur.url = "github:nix-community/NUR";
     niri.url = "github:sodiboo/niri-flake";
     ghostty.url = "github:ghostty-org/ghostty";
     ashell.url = "github:MalpenZibo/ashell";
     rust-overlay.url = "github:oxalica/rust-overlay";
+
     agenix.url = "github:ryantm/agenix";
     agenix-rekey = {
       url = "github:oddlama/agenix-rekey";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
     plasma-manager = {
@@ -31,6 +36,10 @@
       url = "github:utensils/comfyui-nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
