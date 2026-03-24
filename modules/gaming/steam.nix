@@ -27,6 +27,7 @@ _: {
   flake.modules.homeManager.steam = _: {
     home.persistence."/persist".directories = [
       ".local/share/Steam"
+      ".cache/mesa_shader_cache"
     ];
   };
 }

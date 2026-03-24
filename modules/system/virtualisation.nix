@@ -32,4 +32,10 @@ _: {
         "${pkgs.bash}/bin/sh -c 'umask 0077 && (dd if=/dev/random status=none bs=32 count=1 | ${pkgs.systemd}/bin/systemd-creds encrypt --name=secrets-encryption-key - /var/lib/libvirt/secrets/secrets-encryption-key)'"
       ];
     };
+
+  flake.modules.homeManager.virtualisation = _: {
+    home.persistence."/persist".directories = [
+      ".config/libvirt"
+    ];
+  };
 }

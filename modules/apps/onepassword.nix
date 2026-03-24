@@ -12,4 +12,10 @@ _: {
       mode = "0755";
     };
   };
+
+  flake.modules.homeManager.onepassword = _: {
+    home.persistence."/persist".directories = [
+      ".config/1Password"
+    ];
+  };
 }

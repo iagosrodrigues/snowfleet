@@ -17,4 +17,10 @@ _: {
       "/var/lib/pipewire"
     ];
   };
+
+  flake.modules.homeManager.audio = _: {
+    home.persistence."/persist".directories = [
+      ".local/state/wireplumber"
+    ];
+  };
 }

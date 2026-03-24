@@ -18,4 +18,10 @@
       ];
     };
   };
+
+  flake.modules.homeManager.comfyui = _: {
+    home.persistence."/persist".directories = [
+      ".config/comfy-ui"
+    ];
+  };
 }

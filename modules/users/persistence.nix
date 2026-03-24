@@ -5,6 +5,7 @@ _: {
       "Projects"
       ".icons"
       ".gnupg"
+      ".local/share/nix"
     ];
   };
 }

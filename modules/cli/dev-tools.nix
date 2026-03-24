@@ -10,6 +10,7 @@ _: {
 
     home.persistence."/persist".directories = [
       ".local/share/direnv"
+      ".cache/uv"
     ];
 
     home.persistence."/persist".files = [

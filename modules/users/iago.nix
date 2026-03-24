@@ -26,7 +26,6 @@ in
       {
         programs = {
           home-manager.enable = true;
-          brave.enable = true;
           mpv.enable = true;
           tmux.enable = true;
           fish.enable = true;

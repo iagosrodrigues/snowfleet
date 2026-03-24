@@ -33,11 +33,19 @@ let
   ];
 
   sharedHmModules = with hm; [
+    ai-tools
+    audio
     ashell
+    brave
+    comfyui
     dev-tools
+    discord
     ghostty
     git
+    lmstudio
     ollama
+    onepassword
+    obs-studio
     opencode-desktop
     personal-git
     gnome
@@ -49,7 +57,10 @@ let
     ssh
     steam
     tailscale
+    telegram
     user-persistence
+    virtualisation
+    vscode
     work-git
     zed
   ];
@@ -103,41 +114,6 @@ let
 
   hmModules = sharedHmModules ++ [
     inputs.nixvim.homeModules.nixvim
-    {
-      home.persistence."/persist" = {
-        directories = [
-          # Application state
-          ".local/share/TelegramDesktop"
-          ".local/share/keyrings"
-          ".local/state/wireplumber"
-
-          # Application config
-          ".config/1Password"
-          ".config/BraveSoftware"
-          ".config/dconf"
-          ".config/discord"
-          ".config/libvirt"
-          ".config/obs-studio"
-          ".config/comfy-ui"
-          ".config/Code"
-          ".vscode"
-          ".claude"
-          ".codex"
-          ".gemini"
-
-          # Cache Vulkan shaders
-          ".cache/huggingface"
-          ".cache/mesa_shader_cache"
-          ".cache/uv"
-
-          # Crypto / Auth
-
-          # AI / ML
-          ".lmstudio"
-          ".config/LM Studio"
-        ];
-      };
-    }
   ];
 in
 {

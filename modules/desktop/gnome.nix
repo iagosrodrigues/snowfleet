@@ -196,7 +196,11 @@ _: {
           name = "adw-gtk3-dark";
           package = pkgs.adw-gtk3;
         };
-
       };
+
+      home.persistence."/persist".directories = [
+        ".config/dconf"
+        ".local/share/keyrings"
+      ];
     };
 }
