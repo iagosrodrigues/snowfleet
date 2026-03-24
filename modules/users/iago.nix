@@ -45,11 +45,9 @@ in
           };
 
           packages = with pkgs; [
-            (btop.overrideAttrs (old: {
-              cmakeFlags = (old.cmakeFlags or [ ]) ++ [ "-DBTOP_GPU=ON" ];
-            }))
             _1password-cli
             android-tools
+            btop
             cargo
             clang
             claude-code
@@ -71,7 +69,9 @@ in
             nixd
             nixfmt
             nodejs
+            oversteer
             p7zip
+            protonvpn-gui
             ripgrep
             rocmPackages.rocm-smi
             rocmPackages.rocminfo
@@ -80,6 +80,7 @@ in
             transmission_4-gtk
             unixtools.xxd
             unzip
+            vscode
             wl-clipboard
             xwayland-satellite
           ];
@@ -90,10 +91,9 @@ in
             NIXOS_OZONE_WL = "1";
             MOZ_ENABLE_WAYLAND = "1";
             QT_QPA_PLATFORM = "wayland";
-            SDL_VIDEODRIVER = "wayland";
             GDK_BACKEND = "wayland";
-            GTK_IM_MODULE = "simple";
-            QT_IM_MODULE = "simple";
+            GTK_IM_MODULE = "ibus";
+            QT_IM_MODULE = "ibus";
           };
         };
 

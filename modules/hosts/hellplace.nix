@@ -42,6 +42,7 @@ let
     helium-browser
     niri
     niri-config
+    nixvim
     shell
     ssh
     steam
@@ -124,6 +125,7 @@ let
   ];
 
   hmModules = sharedHmModules ++ [
+    inputs.nixvim.homeModules.nixvim
     {
       home.persistence."/persist" = {
         directories = [
@@ -139,6 +141,7 @@ let
           ".local/share/nix"
           ".local/share/opencode"
           ".local/share/zoxide"
+          ".local/state/gh"
           ".local/state/wireplumber"
 
           # Application config
@@ -147,11 +150,15 @@ let
           ".config/dconf"
           ".config/discord"
           ".config/libvirt"
+          ".config/gh"
           ".config/obs-studio"
           ".config/opencode"
           ".config/comfy-ui"
+          ".config/Code"
+          ".vscode"
           ".claude"
           ".codex"
+          ".gemini"
 
           ".icons"
 
@@ -159,6 +166,7 @@ let
           ".cache/opencode"
           ".cache/huggingface"
           ".cache/mesa_shader_cache"
+          ".cache/uv"
 
           # Crypto / Auth
           ".gnupg"
