@@ -29,5 +29,10 @@ _: {
 
         zoxide.enable = true;
       };
+
+      home.persistence."/persist".directories = [
+        ".local/share/fish"
+        ".local/share/zoxide"
+      ];
     };
 }

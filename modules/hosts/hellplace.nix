@@ -37,6 +37,7 @@ let
     dev-tools
     ghostty
     git
+    ollama
     opencode-desktop
     personal-git
     gnome
@@ -107,13 +108,7 @@ let
         directories = [
           # Application state
           ".local/share/TelegramDesktop"
-          ".local/share/direnv"
-          ".local/share/fish"
           ".local/share/keyrings"
-          ".local/share/nix"
-          ".local/share/opencode"
-          ".local/share/zoxide"
-          ".local/state/gh"
           ".local/state/wireplumber"
 
           # Application config
@@ -122,9 +117,7 @@ let
           ".config/dconf"
           ".config/discord"
           ".config/libvirt"
-          ".config/gh"
           ".config/obs-studio"
-          ".config/opencode"
           ".config/comfy-ui"
           ".config/Code"
           ".vscode"
@@ -133,21 +126,15 @@ let
           ".gemini"
 
           # Cache Vulkan shaders
-          ".cache/opencode"
           ".cache/huggingface"
           ".cache/mesa_shader_cache"
           ".cache/uv"
 
           # Crypto / Auth
-          ".ssh"
 
           # AI / ML
-          ".ollama"
           ".lmstudio"
           ".config/LM Studio"
-        ];
-        files = [
-          ".claude.json"
         ];
       };
     }

@@ -20,4 +20,10 @@ _: {
         "/var/lib/private/ollama"
       ];
     };
+
+  flake.modules.homeManager.ollama = _: {
+    home.persistence."/persist".directories = [
+      ".ollama"
+    ];
+  };
 }

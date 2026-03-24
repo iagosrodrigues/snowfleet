@@ -91,5 +91,11 @@ in
       home.packages = [
         (opencodeDesktopPackage { inherit pkgs; })
       ];
+
+      home.persistence."/persist".directories = [
+        ".config/opencode"
+        ".cache/opencode"
+        ".local/share/opencode"
+      ];
     };
 }

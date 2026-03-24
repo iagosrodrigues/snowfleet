@@ -182,5 +182,10 @@ _: {
         gitsh.defaultCommand = "s";
       };
     };
+
+    home.persistence."/persist".directories = [
+      ".config/gh"
+      ".local/state/gh"
+    ];
   };
 }

@@ -8,5 +8,9 @@ _: {
         identityAgent = "~/.1password/agent.sock";
       };
     };
+
+    home.persistence."/persist".directories = [
+      ".ssh"
+    ];
   };
 }

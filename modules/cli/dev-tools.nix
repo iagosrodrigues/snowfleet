@@ -7,5 +7,13 @@ _: {
     };
 
     programs.mise.enable = true;
+
+    home.persistence."/persist".directories = [
+      ".local/share/direnv"
+    ];
+
+    home.persistence."/persist".files = [
+      ".claude.json"
+    ];
   };
 }
