@@ -25,6 +25,7 @@ let
     printing
     private
     shell
+    ssh
     steam
     tailscale
     virtualisation
@@ -97,16 +98,6 @@ let
 
         users.mutableUsers = false;
         users.users.iago.hashedPasswordFile = config.age.secrets.iago-password.path;
-
-        environment.persistence."/persist" = {
-          files = [
-            # SSH host keys (prevent fingerprint change on reboot)
-            "/etc/ssh/ssh_host_rsa_key"
-            "/etc/ssh/ssh_host_rsa_key.pub"
-            "/etc/ssh/ssh_host_ed25519_key"
-            "/etc/ssh/ssh_host_ed25519_key.pub"
-          ];
-        };
 
       }
     )
