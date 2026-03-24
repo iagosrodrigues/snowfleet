@@ -86,22 +86,6 @@ let
         users.users.iago.hashedPasswordFile = config.age.secrets.iago-password.path;
 
         environment.persistence."/persist" = {
-          directories = [
-            # Network
-            "/var/lib/NetworkManager"
-            "/etc/NetworkManager/system-connections"
-
-            # Virtualisation
-            "/var/lib/docker"
-            "/var/lib/libvirt"
-
-            # Services
-            "/var/lib/cups"
-            "/var/lib/private/ollama"
-
-            # Audio (persistent volume levels)
-            "/var/lib/pipewire"
-          ];
           files = [
             # SSH host keys (prevent fingerprint change on reboot)
             "/etc/ssh/ssh_host_rsa_key"

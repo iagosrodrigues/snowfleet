@@ -15,5 +15,9 @@ _: {
           HSA_ENABLE_SDMA = "0";
         };
       };
+
+      environment.persistence."/persist".directories = [
+        "/var/lib/private/ollama"
+      ];
     };
 }

@@ -2,6 +2,11 @@ _: {
   flake.modules.nixos.networking = {
     networking.networkmanager.enable = true;
 
+    environment.persistence."/persist".directories = [
+      "/var/lib/NetworkManager"
+      "/etc/NetworkManager/system-connections"
+    ];
+
     time.timeZone = "America/Fortaleza";
 
     i18n = {

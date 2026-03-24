@@ -12,5 +12,9 @@ _: {
     };
 
     security.rtkit.enable = true;
+
+    environment.persistence."/persist".directories = [
+      "/var/lib/pipewire"
+    ];
   };
 }
