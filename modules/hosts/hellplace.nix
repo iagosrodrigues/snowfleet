@@ -48,6 +48,7 @@ let
     ssh
     steam
     tailscale
+    user-persistence
     work-git
     zed
   ];
@@ -104,10 +105,6 @@ let
     {
       home.persistence."/persist" = {
         directories = [
-          # User data
-          "Downloads"
-          "Projects"
-
           # Application state
           ".local/share/TelegramDesktop"
           ".local/share/direnv"
@@ -135,8 +132,6 @@ let
           ".codex"
           ".gemini"
 
-          ".icons"
-
           # Cache Vulkan shaders
           ".cache/opencode"
           ".cache/huggingface"
@@ -144,7 +139,6 @@ let
           ".cache/uv"
 
           # Crypto / Auth
-          ".gnupg"
           ".ssh"
 
           # AI / ML
