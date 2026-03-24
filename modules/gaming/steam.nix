@@ -4,14 +4,6 @@ _: {
     {
       programs.steam = {
         enable = true;
-        package = pkgs.steam.override {
-          extraEnv = {
-            MANGOHUD = true;
-            MANGOHUD_CONFIG = "full,core_load=0";
-            PRESSURE_VESSEL_IMPORT_OPENXR_1_RUNTIMES = 1;
-            PROTON_ENABLE_WAYLAND = true;
-          };
-        };
         remotePlay.openFirewall = true;
         dedicatedServer.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
