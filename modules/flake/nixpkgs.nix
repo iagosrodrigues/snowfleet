@@ -15,6 +15,9 @@
       overlays = [
         inputs.nur.overlays.default
         inputs.niri.overlays.niri
+        (final: _: {
+          crush = final.callPackage ../../pkgs/crush.nix { };
+        })
       ];
     };
   };

@@ -51,6 +51,7 @@ in
             clang
             claude-code
             codex
+            crush
             davinci-resolve-studio
             discord
             eza
@@ -59,7 +60,6 @@ in
             fuzzel
             gemini-cli
             gh
-            inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
             jetbrains.idea
             jujutsu
             libreoffice-still
@@ -68,9 +68,10 @@ in
             nixd
             nixfmt
             nodejs
+            opencode
             oversteer
             p7zip
-            protonvpn-gui
+            proton-vpn
             ripgrep
             rocmPackages.rocm-smi
             rocmPackages.rocminfo

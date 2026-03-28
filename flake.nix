@@ -12,7 +12,7 @@
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
-    opencode.url = "github:anomalyco/opencode/v1.3.0";
+    opencode.url = "github:anomalyco/opencode/v1.3.3";
     nur.url = "github:nix-community/NUR";
     niri.url = "github:sodiboo/niri-flake";
     ghostty.url = "github:ghostty-org/ghostty";

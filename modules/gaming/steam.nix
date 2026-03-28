@@ -7,7 +7,9 @@ _: {
         remotePlay.openFirewall = true;
         dedicatedServer.openFirewall = true;
         localNetworkGameTransfers.openFirewall = true;
-        gamescopeSession.enable = false;
+        # Offer an isolated Steam session in GDM so game-triggered GPU resets do
+        # not also kill the day-to-day desktop session.
+        gamescopeSession.enable = true;
         protontricks.enable = true;
         extraCompatPackages = [ pkgs.proton-ge-bin ];
       };

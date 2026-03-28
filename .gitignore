@@ -1,4 +1,5 @@
 .direnv/
 .claude/
+.crush/
 result
 result-*

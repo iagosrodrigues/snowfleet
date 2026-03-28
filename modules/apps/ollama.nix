@@ -10,7 +10,10 @@ _: {
           "qwen3.5:9b"
         ];
         environmentVariables = {
-          HSA_OVERRIDE_GFX_VERSION = "11.0.1";
+          # Keep ROCm on the RX 7800 XT. Letting Ollama probe the Raphael iGPU
+          # has been triggering an amdgpu reset during boot.
+          ROCR_VISIBLE_DEVICES = "GPU-6de0e4d48ee7c950";
+          HSA_OVERRIDE_GFX_VERSION_0 = "11.0.1";
           HCC_AMDGPU_TARGET = "gfx1101";
           HSA_ENABLE_SDMA = "0";
         };

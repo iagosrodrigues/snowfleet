@@ -5,6 +5,9 @@ _: {
       ".codex"
       ".gemini"
       ".cache/huggingface"
+      ".crush"
+      ".config/crush"
+      ".local/share/crush"
     ];
   };
 }
