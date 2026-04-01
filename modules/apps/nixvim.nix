@@ -33,7 +33,7 @@ _: {
 
         swapfile = false;
         backup = false;
-        undodir = "os.getenv \"HOME\" .. \"/.vim/undodir\"";
+        undodir.__raw = ''os.getenv("HOME") .. "/.vim/undodir"'';
         undofile = true;
 
         hlsearch = true;
