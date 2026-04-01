@@ -5,8 +5,10 @@ _: {
       services.wivrn = {
         enable = true;
         openFirewall = true;
-        defaultRuntime = true;
         autoStart = false;
+        steam = {
+          enable = true;
+        };
       };
 
       environment.systemPackages = with pkgs; [

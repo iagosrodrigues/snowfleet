@@ -4,16 +4,17 @@ _: {
     {
       fonts.packages = with pkgs; [
         _0xproto
+        agave
         corefonts
         dejavu_fonts
         geist-font
         ibm-plex
         inconsolata
         inter
-        nerd-fonts.jetbrains-mono
         julia-mono
         lilex
         maple-mono.variable
+        nerd-fonts.jetbrains-mono
         nerd-fonts.symbols-only
       ];
     };

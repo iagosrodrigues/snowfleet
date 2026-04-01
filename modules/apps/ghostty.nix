@@ -7,8 +7,8 @@ _: {
       settings = {
         background-opacity = 1;
         command = "/etc/profiles/per-user/iago/bin/fish";
-        font-family = "Jetbrains Mono";
-        font-size = 18;
+        font-family = "Agave";
+        font-size = 23;
         theme = "Gruvbox Material";
       };
     };

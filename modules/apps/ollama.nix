@@ -16,6 +16,7 @@ _: {
           HSA_OVERRIDE_GFX_VERSION_0 = "11.0.1";
           HCC_AMDGPU_TARGET = "gfx1101";
           HSA_ENABLE_SDMA = "0";
+          OLLAMA_NUM_CTX = "65536";
         };
       };
 

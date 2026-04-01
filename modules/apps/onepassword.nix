@@ -7,7 +7,7 @@ _: {
     };
     environment.etc."1password/custom_allowed_browsers" = {
       text = ''
-        helium-browser
+        helium
       '';
       mode = "0755";
     };
