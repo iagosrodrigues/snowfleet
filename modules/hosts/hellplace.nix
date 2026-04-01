@@ -8,6 +8,7 @@ let
   hm = config.flake.modules.homeManager;
 
   sharedNixosModules = with nixos; [
+    nix-settings
     agenix
     audio
     fonts
@@ -18,7 +19,6 @@ let
     io-schedulers
     networking
     # niri
-    nix-settings
     nixpkgs-config
     ollama
     onepassword
@@ -35,24 +35,22 @@ let
 
   sharedHmModules = with hm; [
     ai-tools
-    audio
     ashell
+    audio
     brave
     comfyui
     dev-tools
     discord
     ghostty
     git
-    lmstudio
-    ollama
-    onepassword
-    obs-studio
-    opencode-desktop
-    personal-git
     gnome
     helium-browser
-    # niri
-    # niri-config
+    lmstudio
+    obs-studio
+    ollama
+    onepassword
+    opencode
+    personal-git
     nixvim
     shell
     ssh

@@ -12,7 +12,6 @@
 
     wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
 
-    opencode.url = "github:anomalyco/opencode/v1.3.3";
     nur.url = "github:nix-community/NUR";
     niri.url = "github:sodiboo/niri-flake";
     ghostty.url = "github:ghostty-org/ghostty";
@@ -39,6 +38,10 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

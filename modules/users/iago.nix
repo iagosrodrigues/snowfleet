@@ -49,9 +49,10 @@ in
             btop
             cargo
             clang
-            claude-code
-            codex
-            crush
+            pkgs.llm-agents.claude-code
+            pkgs.llm-agents.opencode
+            pkgs.llm-agents.codex
+            pkgs.llm-agents.crush
             davinci-resolve-studio
             discord
             eza
@@ -68,7 +69,6 @@ in
             nixd
             nixfmt
             nodejs
-            opencode
             oversteer
             p7zip
             proton-vpn
