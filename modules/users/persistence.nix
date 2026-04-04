@@ -5,6 +5,7 @@ _: {
       ".gnupg"
       ".icons"
       ".local/share/nix"
+      ".local/share/fonts"
       "Downloads"
       "Projects"
     ];
