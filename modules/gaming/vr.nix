@@ -15,4 +15,11 @@ _: {
         wayvr
       ];
     };
+
+  flake.modules.homeManager.vr = _: {
+    home.persistence."/persist".directories = [
+      ".config/wivrn"
+      ".local/state/wivrn"
+    ];
+  };
 }

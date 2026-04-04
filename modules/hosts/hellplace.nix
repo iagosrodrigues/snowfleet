@@ -59,6 +59,7 @@ let
     telegram
     user-persistence
     virtualisation
+    vr
     vscode
     work-git
     zed
