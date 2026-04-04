@@ -51,7 +51,6 @@ let
     onepassword
     opencode
     personal-git
-    nixvim
     shell
     ssh
     steam
