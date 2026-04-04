@@ -46,7 +46,7 @@ in
           packages = with pkgs; [
             _1password-cli
             android-tools
-            btop
+            (btop.override { rocmSupport = true; })
             cargo
             clang
             pkgs.llm-agents.claude-code
