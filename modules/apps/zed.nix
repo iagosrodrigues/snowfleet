@@ -12,6 +12,11 @@ _: {
         ];
         userSettings = {
           vim_mode = true;
+          buffer_font_family = "Berkeley Mono";
+          buffer_font_size = 20;
+          buffer_font_features = {
+            calt = true;
+          };
           lsp = {
             tinymist = {
               settings = {
