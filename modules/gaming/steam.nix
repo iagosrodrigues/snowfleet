@@ -11,10 +11,12 @@ _: {
         # not also kill the day-to-day desktop session.
         gamescopeSession.enable = true;
         protontricks.enable = true;
-        extraCompatPackages = [ pkgs.proton-ge-bin ];
       };
 
-      environment.systemPackages = with pkgs; [ mangohud ];
+      environment.systemPackages = with pkgs; [
+        mangohud
+        protonup-ng
+      ];
 
       hardware.graphics = {
         enable = true;
