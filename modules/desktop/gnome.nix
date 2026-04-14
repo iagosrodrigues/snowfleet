@@ -4,7 +4,7 @@ _: {
     {
       services = {
         xserver = {
-          enable = false;
+          enable = true;
           videoDrivers = [ "amdgpu" ];
           xkb = {
             layout = "us";
