@@ -178,8 +178,9 @@ _: {
         gtk4.theme = config.gtk.theme;
 
         cursorTheme = {
-          package = pkgs.apple-cursor;
-          name = "macOS";
+          package = pkgs.sweet-cursors;
+          name = "Sweet-cursors";
+          size = 48;
         };
 
         font = {

@@ -16,9 +16,9 @@
         inputs.nur.overlays.default
         inputs.niri.overlays.niri
         inputs.llm-agents.overlays.default
-        # (final: _: {
-        #   crush = final.callPackage ../../pkgs/crush.nix { };
-        # })
+        (final: _: {
+          sweet-cursors = final.callPackage ../../pkgs/sweet-cursors.nix { };
+        })
       ];
     };
   };

@@ -38,8 +38,8 @@ in
 
           pointerCursor = {
             gtk.enable = true;
-            name = "macOS";
-            package = pkgs.apple-cursor;
+            name = "Sweet-cursors";
+            package = pkgs.sweet-cursors;
             size = 48;
           };
 
