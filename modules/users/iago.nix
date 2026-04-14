@@ -50,7 +50,6 @@ in
             cargo
             clang
             pkgs.llm-agents.claude-code
-            pkgs.llm-agents.opencode
             pkgs.llm-agents.codex
             pkgs.llm-agents.crush
             davinci-resolve-studio
@@ -61,7 +60,6 @@ in
             fuzzel
             gemini-cli
             gh
-            jetbrains.idea
             jujutsu
             libreoffice-still
             lmstudio
@@ -94,6 +92,7 @@ in
             GDK_BACKEND = "wayland";
             GTK_IM_MODULE = "ibus";
             QT_IM_MODULE = "ibus";
+            STEAM_EXTRA_COMPAT_TOOLS_PATHS = "/home/iago/.steam/root/compatibilitytools.d";
           };
         };
 

@@ -35,6 +35,7 @@ let
 
   sharedHmModules = with hm; [
     ai-tools
+    amp
     ashell
     audio
     brave
@@ -45,12 +46,14 @@ let
     git
     gnome
     helium-browser
+    intellij
     lmstudio
     obs-studio
     ollama
     onepassword
     opencode
     personal-git
+    rclone
     shell
     ssh
     steam
