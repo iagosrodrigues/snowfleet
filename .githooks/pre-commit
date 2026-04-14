@@ -16,5 +16,17 @@ fi
 echo "Formatting staged Nix files"
 nix fmt -- "${staged_nix_files[@]}"
 
-echo "Restaging formatted files"
-git add -- "${staged_nix_files[@]}"
+has_partial=false
+for file in "${staged_nix_files[@]}"; do
+  if git diff -- "$file" | grep -q .; then
+    has_partial=true
+    break
+  fi
+done
+
+if [ "$has_partial" = true ]; then
+  echo "Note: partial staging detected — skipping restage to preserve hunks"
+  echo "Run 'git add' manually if formatting changed staged lines"
+else
+  git add -- "${staged_nix_files[@]}"
+fi
