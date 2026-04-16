@@ -27,7 +27,6 @@ in
         programs = {
           home-manager.enable = true;
           mpv.enable = true;
-          tmux.enable = true;
           fish.enable = true;
         };
 
@@ -38,8 +37,8 @@ in
 
           pointerCursor = {
             gtk.enable = true;
-            name = "Sweet-cursors";
-            package = pkgs.sweet-cursors;
+            name = "MacOS-Tahoe-Cursor";
+            package = pkgs.macos-tahoe-cursor;
             size = 48;
           };
 
@@ -49,10 +48,9 @@ in
             (btop.override { rocmSupport = true; })
             cargo
             clang
-            pkgs.llm-agents.claude-code
+            pkgs.claude-code
             pkgs.llm-agents.codex
             pkgs.llm-agents.crush
-            davinci-resolve-studio
             discord
             eza
             fd
@@ -60,9 +58,9 @@ in
             fuzzel
             gemini-cli
             gh
+            gnupg
             jujutsu
             libreoffice-still
-            lmstudio
             nil
             nixd
             nixfmt

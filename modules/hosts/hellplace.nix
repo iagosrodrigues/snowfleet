@@ -40,6 +40,7 @@ let
     audio
     brave
     comfyui
+    davinci-resolve
     dev-tools
     discord
     ghostty
@@ -59,6 +60,7 @@ let
     steam
     tailscale
     telegram
+    tmux
     user-persistence
     virtualisation
     vr

@@ -178,8 +178,8 @@ _: {
         gtk4.theme = config.gtk.theme;
 
         cursorTheme = {
-          package = pkgs.sweet-cursors;
-          name = "Sweet-cursors";
+          package = pkgs.macos-tahoe-cursor;
+          name = "MacOS-Tahoe-Cursor";
           size = 48;
         };
 
@@ -198,6 +198,16 @@ _: {
           package = pkgs.adw-gtk3;
         };
       };
+
+      # Override compose table so dead_acute + c/C produces cedilla
+      # instead of c-acute, matching Windows/macOS behavior.
+      # Mutter reads this via libxkbcommon on Wayland.
+      home.file.".XCompose".text = ''
+        include "%L"
+
+        <dead_acute> <c> : "ç" ccedilla
+        <dead_acute> <C> : "Ç" Ccedilla
+      '';
 
       home.persistence."/persist".directories = [
         ".config/dconf"

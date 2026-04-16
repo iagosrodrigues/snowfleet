@@ -1,8 +1,12 @@
 _: {
-  flake.modules.homeManager.lmstudio = _: {
-    home.persistence."/persist".directories = [
-      ".lmstudio"
-      ".config/LM Studio"
-    ];
-  };
+  flake.modules.homeManager.lmstudio =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.lmstudio ];
+
+      home.persistence."/persist".directories = [
+        ".lmstudio"
+        ".config/LM Studio"
+      ];
+    };
 }
