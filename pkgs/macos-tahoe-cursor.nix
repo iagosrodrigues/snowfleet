@@ -1,3 +1,9 @@
+# The MacOS-Tahoe-Cursor.zip is not redistributable, so it is not tracked in
+# this repo. Download it from https://www.gnome-look.org/p/2300466 and drop it
+# at $SNOWFLEET_DISTFILES_DIR/MacOS-Tahoe-Cursor.zip (default:
+# ~/.local/share/snowfleet/distfiles/MacOS-Tahoe-Cursor.zip), then rebuild
+# with `nixos-rebuild ... --impure` so the overlay can read outside the flake
+# source. Pure builds fall back to apple-cursor (see modules/users/iago.nix).
 {
   lib,
   stdenvNoCC,

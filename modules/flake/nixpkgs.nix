@@ -19,9 +19,27 @@
         (
           final: _:
           let
-            macosTahoeCursorZipPath = toString ../../pkgs/distfiles + "/MacOS-Tahoe-Cursor.zip";
+            # Third-party distfile that we do not redistribute. Resolve the zip
+            # from $SNOWFLEET_DISTFILES_DIR (default ~/.local/share/snowfleet/
+            # distfiles). Pure flake evaluation cannot read paths outside the
+            # source tree, so building with the cursor requires --impure; in
+            # pure mode macosTahoeCursorZip is null and the package is simply
+            # not defined.
+            distfilesDir =
+              let
+                env = builtins.getEnv "SNOWFLEET_DISTFILES_DIR";
+                home = builtins.getEnv "HOME";
+              in
+              if env != "" then
+                env
+              else if home != "" then
+                "${home}/.local/share/snowfleet/distfiles"
+              else
+                null;
+            macosTahoeCursorZipPath =
+              if distfilesDir == null then null else "${distfilesDir}/MacOS-Tahoe-Cursor.zip";
             macosTahoeCursorZip =
-              if builtins.pathExists macosTahoeCursorZipPath then
+              if macosTahoeCursorZipPath != null && builtins.pathExists macosTahoeCursorZipPath then
                 builtins.path {
                   path = macosTahoeCursorZipPath;
                   name = "MacOS-Tahoe-Cursor.zip";
@@ -31,9 +49,6 @@
           in
           {
             sweet-cursors = final.callPackage ../../pkgs/sweet-cursors.nix { };
-            claude-code = final.callPackage ../../pkgs/claude-code {
-              inherit (final.llm-agents) wrapBuddy;
-            };
           }
           // (
             if macosTahoeCursorZip == null then

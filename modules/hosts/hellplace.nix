@@ -106,9 +106,7 @@ let
     )
   ];
 
-  hmModules = sharedHmModules ++ [
-    hm.lazyvim
-  ];
+  hmModules = sharedHmModules;
 in
 {
   flake.nixosConfigurations.hellplace = inputs.nixpkgs.lib.nixosSystem {

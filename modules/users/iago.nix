@@ -35,14 +35,13 @@ in
           homeDirectory = "/home/${username}";
           stateVersion = "25.05";
 
+          # macos-tahoe-cursor is only present when the out-of-tree zip is
+          # visible to the overlay (i.e. with --impure). Fall back to
+          # apple-cursor so pure evaluations still succeed.
           pointerCursor = {
             gtk.enable = true;
-            # name = "catppuccin-mocha-dark-cursors";
-            # package = pkgs.catppuccin-cursors.mochaDark;
-            # name = "macOS";
-            # package = pkgs.apple-cursor;
-            name = "MacOS-Tahoe-Cursor";
-            package = pkgs.macos-tahoe-cursor;
+            name = if pkgs ? macos-tahoe-cursor then "MacOS-Tahoe-Cursor" else "macOS";
+            package = pkgs.macos-tahoe-cursor or pkgs.apple-cursor;
             size = 48;
           };
 
