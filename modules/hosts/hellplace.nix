@@ -107,7 +107,7 @@ let
   ];
 
   hmModules = sharedHmModules ++ [
-    inputs.nixvim.homeModules.nixvim
+    hm.lazyvim
   ];
 in
 {
