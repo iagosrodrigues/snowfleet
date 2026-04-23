@@ -35,8 +35,7 @@ _: {
         };
         # Helium reads Chromium's system-wide native messaging dir
         # (hardcoded at /etc/chromium/native-messaging-hosts/).
-        "chromium/native-messaging-hosts/com.1password.1password.json".source =
-          nativeMessagingHost;
+        "chromium/native-messaging-hosts/com.1password.1password.json".source = nativeMessagingHost;
       };
     };
 

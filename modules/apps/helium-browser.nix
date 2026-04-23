@@ -47,7 +47,12 @@ let
       };
 
       unwrapped = appimageTools.wrapType2 {
-        inherit pname version src meta;
+        inherit
+          pname
+          version
+          src
+          meta
+          ;
         extraInstallCommands = ''
           desktopFile=""
 
