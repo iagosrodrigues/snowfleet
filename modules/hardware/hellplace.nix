@@ -59,6 +59,7 @@ _: {
 
         # AMD ROCm GPU packages
         graphics.extraPackages = with pkgs; [
+          amf
           rocmPackages.clr.icd
           rocmPackages.rocm-runtime
         ];

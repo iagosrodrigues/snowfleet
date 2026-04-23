@@ -28,6 +28,7 @@ _: {
         extraConfig = ''
           set -ga terminal-overrides ",*256col*:Tc"
           set -g renumber-windows on
+          set -g focus-events on
 
           bind-key a send-prefix
 

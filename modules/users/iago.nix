@@ -37,6 +37,10 @@ in
 
           pointerCursor = {
             gtk.enable = true;
+            # name = "catppuccin-mocha-dark-cursors";
+            # package = pkgs.catppuccin-cursors.mochaDark;
+            # name = "macOS";
+            # package = pkgs.apple-cursor;
             name = "MacOS-Tahoe-Cursor";
             package = pkgs.macos-tahoe-cursor;
             size = 48;
@@ -44,13 +48,10 @@ in
 
           packages = with pkgs; [
             _1password-cli
-            android-tools
             (btop.override { rocmSupport = true; })
+            android-tools
             cargo
             clang
-            pkgs.claude-code
-            pkgs.llm-agents.codex
-            pkgs.llm-agents.crush
             discord
             eza
             fd
@@ -59,6 +60,7 @@ in
             gemini-cli
             gh
             gnupg
+            jq
             jujutsu
             libreoffice-still
             nil
@@ -67,7 +69,11 @@ in
             nodejs
             oversteer
             p7zip
+            pkgs.claude-code
+            pkgs.llm-agents.codex
+            pkgs.llm-agents.crush
             proton-vpn
+            python3
             ripgrep
             rocmPackages.rocm-smi
             rocmPackages.rocminfo

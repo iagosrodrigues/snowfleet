@@ -7,6 +7,7 @@ _: {
       home.persistence."/persist".directories = [
         ".config/JetBrains"
         ".java"
+        ".jdks"
         ".local/share/JetBrains"
       ];
     };

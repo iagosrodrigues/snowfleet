@@ -80,8 +80,10 @@ _: {
             "brave-browser.desktop"
             "com.mitchellh.ghostty.desktop"
             "dev.zed.Zed.desktop"
+            "code.desktop"
             "org.telegram.desktop.desktop"
             "steam.desktop"
+            "org.gnome.Nautilus.desktop"
           ];
         };
 
@@ -177,11 +179,11 @@ _: {
         colorScheme = "dark";
         gtk4.theme = config.gtk.theme;
 
-        cursorTheme = {
-          package = pkgs.macos-tahoe-cursor;
-          name = "MacOS-Tahoe-Cursor";
-          size = 48;
-        };
+        # cursorTheme = {
+        #   package = pkgs.rose-pine-cursor;
+        #   name = "Rose Pine Cursor";
+        #   size = 48;
+        # };
 
         font = {
           name = "IBM Plex Sans";
