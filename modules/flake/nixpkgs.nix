@@ -17,7 +17,7 @@
         inputs.niri.overlays.niri
         inputs.llm-agents.overlays.default
         (
-          final: _:
+          final: prev:
           let
             # Third-party distfile that we do not redistribute. Resolve the zip
             # from $SNOWFLEET_DISTFILES_DIR (default ~/.local/share/snowfleet/
@@ -48,7 +48,11 @@
                 null;
           in
           {
+            code-cursor = final.callPackage ../../pkgs/code-cursor.nix {
+              code-cursor = prev.code-cursor;
+            };
             sweet-cursors = final.callPackage ../../pkgs/sweet-cursors.nix { };
+            # zed-editor = final.callPackage ../../pkgs/zed-editor.nix { };
           }
           // (
             if macosTahoeCursorZip == null then

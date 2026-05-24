@@ -30,6 +30,10 @@ _: {
           set -g renumber-windows on
           set -g focus-events on
 
+          set -g allow-passthrough on
+          set -s extended-keys on
+          set -as terminal-features 'xterm*:extkeys'
+
           bind-key a send-prefix
 
           setw -g monitor-activity on

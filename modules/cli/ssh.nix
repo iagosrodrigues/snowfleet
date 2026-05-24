@@ -1,5 +1,15 @@
 _: {
   flake.modules.nixos.ssh = {
+    services.openssh = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
+    };
+
     environment.persistence."/persist".files = [
       "/etc/ssh/ssh_host_rsa_key"
       "/etc/ssh/ssh_host_rsa_key.pub"
@@ -13,6 +23,9 @@ _: {
       enable = true;
       enableDefaultConfig = false;
 
+      # settings = {
+      #   identityAgent = "~/.1password/agent.sock";
+      # };
       matchBlocks."*" = {
         identityAgent = "~/.1password/agent.sock";
       };

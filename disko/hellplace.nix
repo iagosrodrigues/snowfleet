@@ -55,6 +55,13 @@
                         "noatime"
                       ];
                     };
+                    "@games" = {
+                      mountpoint = "/games";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
                     "@persist" = {
                       mountpoint = "/persist";
                       mountOptions = [

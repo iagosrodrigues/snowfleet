@@ -1,14 +1,16 @@
 _: {
   flake.modules.homeManager.user-persistence = {
     home.persistence."/persist".directories = [
-      ".config/nvim"
-      ".local/share/nvim"
-      ".local/state/nvim"
       ".cache/nvim"
+      ".config/knowcore"
+      ".config/nvim"
       ".gnupg"
       ".icons"
-      ".local/share/nix"
       ".local/share/fonts"
+      ".local/share/nix"
+      ".local/share/nvim"
+      ".local/share/snowfleet"
+      ".local/state/nvim"
       "Downloads"
       "Projects"
     ];

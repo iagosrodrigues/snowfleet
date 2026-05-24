@@ -16,6 +16,9 @@ _: {
         maple-mono.variable
         nerd-fonts.jetbrains-mono
         nerd-fonts.symbols-only
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
+        noto-fonts-color-emoji
       ];
     };
 }

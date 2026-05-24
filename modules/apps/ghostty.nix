@@ -1,16 +1,17 @@
 _: {
-  flake.modules.homeManager.ghostty = _: {
-    programs.ghostty = {
-      enable = true;
-      enableFishIntegration = true;
+  flake.modules.homeManager.ghostty =
+    { lib, pkgs, ... }:
+    {
+      programs.ghostty = {
+        enable = true;
 
-      settings = {
-        background-opacity = 1;
-        command = "/etc/profiles/per-user/iago/bin/fish";
-        font-family = "Berkeley Mono";
-        font-size = 20;
-        theme = "Gruvbox Material";
+        settings = {
+          background-opacity = 1;
+          command = lib.getExe pkgs.nushell;
+          font-family = "Google Sans Code";
+          font-size = 20;
+          theme = "Gruvbox Material";
+        };
       };
     };
-  };
 }

@@ -107,7 +107,7 @@ _: {
           font-name = "IBM Plex Sans 10";
           gtk-theme = "adw-gtk3-dark";
           icon-theme = "Tela-dark";
-          monospace-font-name = "IBM Plex Mono 11";
+          monospace-font-name = "Google Sans Code 11";
         };
 
         "org/gnome/desktop/peripherals/mouse" = {

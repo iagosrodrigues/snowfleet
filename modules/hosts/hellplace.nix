@@ -8,17 +8,18 @@ let
   hm = config.flake.modules.homeManager;
 
   sharedNixosModules = with nixos; [
-    nix-settings
+    niri
     agenix
     audio
     fonts
     gnome
     home-manager-base
-    impermanence-base
     iago
+    impermanence-base
     io-schedulers
+    lact
     networking
-    # niri
+    nix-settings
     nixpkgs-config
     ollama
     onepassword
@@ -39,6 +40,7 @@ let
     ashell
     audio
     brave
+    code-cursor
     comfyui
     davinci-resolve
     dev-tools

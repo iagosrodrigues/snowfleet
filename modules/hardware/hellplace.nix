@@ -78,11 +78,37 @@ _: {
         }
       ];
 
+      # Top-level btrfs mount so btrbk can see both @persist and @snapshots
+      # from a single volume root.
+      fileSystems."/mnt/btrfs" = {
+        device = "/dev/mapper/cryptroot";
+        fsType = "btrfs";
+        options = [
+          "subvolid=5"
+          "compress=zstd"
+          "noatime"
+        ];
+      };
+
       services = {
         open-webui = {
           package = pkgs.open-webui;
           enable = true;
         };
+
+        # btrbk.instances.btrbk = {
+        #   onCalendar = "hourly";
+        #   settings = {
+        #     snapshot_preserve_min = "2d";
+        #     snapshot_preserve = "24h 7d 4w";
+        #     volume."/mnt/btrfs" = {
+        #       snapshot_dir = "@snapshots";
+        #       subvolume."@persist" = {
+        #         snapshot_name = "persist";
+        #       };
+        #     };
+        #   };
+        # };
       };
 
       services.udev.packages = [ pkgs.oversteer ];

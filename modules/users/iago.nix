@@ -17,6 +17,9 @@ in
         "video"
         "wheel"
       ];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA+9boyw9MLSLia/aW9DQFD4NLpMc6mlG81FpIwSdkcu Chave principal"
+      ];
       # Login shell is managed by home-manager (programs.fish.enable)
       # Setting shell here would require fish in system packages
     };
@@ -42,15 +45,17 @@ in
             gtk.enable = true;
             name = if pkgs ? macos-tahoe-cursor then "MacOS-Tahoe-Cursor" else "macOS";
             package = pkgs.macos-tahoe-cursor or pkgs.apple-cursor;
-            size = 48;
+            size = 32;
           };
 
           packages = with pkgs; [
-            _1password-cli
+            # immersed
             (btop.override { rocmSupport = true; })
+            _1password-cli
             android-tools
             cargo
             clang
+            code-cursor
             discord
             eza
             fd
@@ -68,7 +73,7 @@ in
             nodejs
             oversteer
             p7zip
-            pkgs.claude-code
+            pkgs.llm-agents.claude-code
             pkgs.llm-agents.codex
             pkgs.llm-agents.crush
             proton-vpn
