@@ -17,9 +17,9 @@ let
     };
   };
 
-  source = sources.${stdenv.hostPlatform.system} or (throw
-    "code-cursor ${version}: unsupported platform ${stdenv.hostPlatform.system}"
-  );
+  source =
+    sources.${stdenv.hostPlatform.system}
+      or (throw "code-cursor ${version}: unsupported platform ${stdenv.hostPlatform.system}");
 
   src = appimageTools.extract {
     pname = "cursor";
