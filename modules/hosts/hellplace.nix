@@ -8,11 +8,10 @@ let
   hm = config.flake.modules.homeManager;
 
   sharedNixosModules = with nixos; [
-    niri
+    kde
     agenix
     audio
     fonts
-    gnome
     home-manager-base
     iago
     impermanence-base
@@ -37,7 +36,7 @@ let
   sharedHmModules = with hm; [
     ai-tools
     amp
-    ashell
+    kde
     audio
     brave
     code-cursor
@@ -47,7 +46,6 @@ let
     discord
     ghostty
     git
-    gnome
     helium-browser
     intellij
     lmstudio
