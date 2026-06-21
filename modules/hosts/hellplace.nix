@@ -46,6 +46,7 @@ let
     discord
     ghostty
     git
+    godot
     helium-browser
     intellij
     jujutsu
