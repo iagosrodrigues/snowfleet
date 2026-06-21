@@ -49,8 +49,8 @@
           colorScheme = "BreezeDark";
           iconTheme = "Papirus-Dark";
           cursor = {
-            theme = "MacOS-Tahoe-Cursor";
-            size = 96;
+            theme = "Breeze_Light";
+            size = 30;
           };
         };
 

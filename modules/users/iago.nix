@@ -38,16 +38,11 @@ in
           homeDirectory = "/home/${username}";
           stateVersion = "25.05";
 
-          # macos-tahoe-cursor is only present when the out-of-tree zip is
-          # visible to the overlay (i.e. with --impure). Fall back to
-          # apple-cursor so pure evaluations still succeed.
           pointerCursor = {
             gtk.enable = true;
-            name = if pkgs ? macos-tahoe-cursor then "MacOS-Tahoe-Cursor" else "macOS";
-            package = pkgs.macos-tahoe-cursor or pkgs.apple-cursor;
-            # 96 is a native size in the theme ([32 48 64 96]); off-grid
-            # values force upscaling and look pixelated.
-            size = 96;
+            name = "Breeze_Light";
+            package = pkgs.kdePackages.breeze;
+            size = 30;
           };
 
           packages = with pkgs; [
