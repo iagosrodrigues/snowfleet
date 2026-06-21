@@ -12,7 +12,7 @@ _: {
         ];
         userSettings = {
           vim_mode = true;
-          buffer_font_family = "Google Sans Code";
+          buffer_font_family = "JetBrainsMono Nerd Font";
           buffer_font_size = 20;
           buffer_font_features = {
             calt = true;
@@ -37,7 +37,7 @@ _: {
           };
           terminal = {
             shell = {
-              program = "${lib.getExe pkgs.fish}";
+              program = "${lib.getExe pkgs.nushell}";
             };
           };
         };

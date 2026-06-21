@@ -43,5 +43,16 @@ _: {
     home.persistence."/persist".directories = [
       ".config/1Password"
     ];
+
+    # Start 1Password silently (minimized to tray) on login.
+    xdg.configFile."autostart/1password.desktop".text = ''
+      [Desktop Entry]
+      Name=1Password
+      Exec=1password --silent
+      Terminal=false
+      Type=Application
+      Icon=1password
+      X-GNOME-Autostart-enabled=true
+    '';
   };
 }

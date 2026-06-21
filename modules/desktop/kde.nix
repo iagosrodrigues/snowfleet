@@ -24,12 +24,25 @@
     };
 
   flake.modules.homeManager.kde =
-    { ... }:
+    { pkgs, ... }:
     {
       imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
+      home.packages = [ pkgs.papirus-icon-theme ];
+
       programs.plasma = {
         enable = true;
+
+        powerdevil.AC.autoSuspend.action = "nothing";
+
+        # Never lock the screen
+        kscreenlocker = {
+          autoLock = false;
+          lockOnResume = false;
+        };
+
+        # Wobbly windows effect
+        kwin.effects.wobblyWindows.enable = true;
 
         workspace = {
           lookAndFeel = "org.kde.breezedark.desktop";
@@ -37,7 +50,7 @@
           iconTheme = "Papirus-Dark";
           cursor = {
             theme = "MacOS-Tahoe-Cursor";
-            size = 24;
+            size = 96;
           };
         };
 
@@ -47,7 +60,12 @@
             floating = true;
             widgets = [
               "org.kde.plasma.kickoff"
-              "org.kde.plasma.icontasks"
+              {
+                iconTasks.launchers = [
+                  "applications:com.mitchellh.ghostty.desktop"
+                  "applications:dev.zed.Zed.desktop"
+                ];
+              }
               "org.kde.plasma.marginsseparator"
               "org.kde.plasma.systemtray"
               "org.kde.plasma.digitalclock"
@@ -86,14 +104,18 @@
         };
       };
 
-      # KDE Plasma state that must survive reboots
+      # KDE Plasma state that must survive reboots.
+      # NOTE: panel layout, taskbar launchers, screen-lock and effects are
+      # declared above via plasma-manager, so they are reapplied on every boot
+      # and do NOT need persistence. Only list runtime-generated state here.
       home.persistence."/persist".directories = [
         ".config/kde.org"
         ".config/kdedefaults"
-        ".config/plasma-org.kde.plasma.desktop-appletsrc"
         ".local/share/kscreen"
         ".local/share/plasma"
         ".local/share/kwalletd"
+      ];
+      home.persistence."/persist".files = [
         ".local/share/recently-used.xbel"
       ];
     };

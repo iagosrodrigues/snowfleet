@@ -54,7 +54,11 @@ _: {
             };
           settings = {
             show_banner = false;
-            history.file_format = "sqlite";
+            history = {
+              file_format = "sqlite";
+              sync_on_enter = true;
+              isolation = true;
+            };
           };
         };
 
@@ -78,6 +82,8 @@ _: {
         files = [
           ".config/nushell/history.txt"
           ".config/nushell/history.sqlite3"
+          ".config/nushell/history.sqlite3-wal"
+          ".config/nushell/history.sqlite3-shm"
         ];
       };
     };

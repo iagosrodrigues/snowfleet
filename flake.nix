@@ -40,6 +40,10 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ai-jail = {
+      url = "path:/home/iago/Projects/Personal/ai-jail";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

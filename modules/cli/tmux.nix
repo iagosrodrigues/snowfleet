@@ -4,7 +4,7 @@ _: {
     {
       programs.tmux = {
         enable = true;
-        shell = "${pkgs.fish}/bin/fish";
+        shell = "${pkgs.nushell}/bin/nu";
         terminal = "xterm-256color";
         historyLimit = 1000;
         escapeTime = 0;

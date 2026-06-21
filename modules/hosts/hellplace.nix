@@ -9,6 +9,7 @@ let
 
   sharedNixosModules = with nixos; [
     kde
+    ai-jail
     agenix
     audio
     fonts
@@ -36,7 +37,6 @@ let
   sharedHmModules = with hm; [
     ai-tools
     amp
-    kde
     audio
     brave
     code-cursor
@@ -48,6 +48,8 @@ let
     git
     helium-browser
     intellij
+    jujutsu
+    kde
     lmstudio
     obs-studio
     ollama
@@ -67,6 +69,7 @@ let
     vscode
     work-git
     zed
+    zellij
   ];
 
   diskoConfig = import ../../disko/hellplace.nix;

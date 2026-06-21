@@ -45,7 +45,9 @@ in
             gtk.enable = true;
             name = if pkgs ? macos-tahoe-cursor then "MacOS-Tahoe-Cursor" else "macOS";
             package = pkgs.macos-tahoe-cursor or pkgs.apple-cursor;
-            size = 32;
+            # 96 is a native size in the theme ([32 48 64 96]); off-grid
+            # values force upscaling and look pixelated.
+            size = 96;
           };
 
           packages = with pkgs; [
@@ -65,7 +67,6 @@ in
             gh
             gnupg
             jq
-            jujutsu
             libreoffice-still
             nil
             nixd
@@ -83,7 +84,19 @@ in
             rocmPackages.rocminfo
             statix
             telegram-desktop
-            transmission_4-gtk
+            # transmission_4-gtk ships an unwrapped GTK3 binary; without the
+            # GTK3 gsettings schemas on XDG_DATA_DIRS its file-chooser teardown
+            # hits a fatal g_error ("org.gtk.Settings.FileChooser not installed")
+            # and aborts. Wrap it to inject the schema dir.
+            (symlinkJoin {
+              name = "transmission_4-gtk-wrapped";
+              paths = [ transmission_4-gtk ];
+              nativeBuildInputs = [ makeWrapper ];
+              postBuild = ''
+                wrapProgram $out/bin/transmission-gtk \
+                  --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}"
+              '';
+            })
             unixtools.xxd
             unzip
             vscode

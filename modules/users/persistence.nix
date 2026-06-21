@@ -9,6 +9,7 @@ _: {
       ".local/share/fonts"
       ".local/share/nix"
       ".local/share/nvim"
+      ".local/share/organice"
       ".local/share/snowfleet"
       ".local/state/nvim"
       "Downloads"
