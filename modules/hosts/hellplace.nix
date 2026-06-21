@@ -51,6 +51,7 @@ let
     jujutsu
     kde
     lmstudio
+    mongodb-compass
     obs-studio
     ollama
     onepassword
