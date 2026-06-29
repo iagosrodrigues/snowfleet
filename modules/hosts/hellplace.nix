@@ -57,6 +57,7 @@ let
     ollama
     onepassword
     opencode
+    organice
     personal-git
     qbittorrent
     rclone

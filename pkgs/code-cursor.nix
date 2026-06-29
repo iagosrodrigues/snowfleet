@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "3.9.8";
-  commit = "4aa8ff1b7877ed7bd01bcba308698f71a6735380";
+  version = "3.9.16";
+  commit = "042b3c1a4c53f2c3808067f519fbfc67b72cad8b";
 
   sources = {
     x86_64-linux = {
       url = "https://downloads.cursor.com/production/${commit}/linux/x64/Cursor-${version}-x86_64.AppImage";
-      hash = "sha256-xcyFowrW5yzIDCwbFGmpDRSNa3OUXsHwpLkbyNcSzqM=";
+      hash = "sha256-dG61VYGMHPip57ldzNICEi1yPc4s1dON+MlDGiKadKc=";
     };
   };
 
@@ -30,7 +30,7 @@ code-cursor.overrideAttrs (oldAttrs: {
   inherit version src;
   sourceRoot = "cursor-${version}-extracted/usr/share/cursor";
 
-  # 3.9.8 bundles a musl-linked variant of the whichlang-node binding next to
+  # 3.9.16 bundles a musl-linked variant of the whichlang-node binding next to
   # the glibc one; the glibc copy is what gets dlopened on NixOS, so silence
   # auto-patchelf on the unreachable musl libc dependency.
   autoPatchelfIgnoreMissingDeps = (oldAttrs.autoPatchelfIgnoreMissingDeps or [ ]) ++ [

@@ -44,6 +44,10 @@
       url = "path:/home/iago/Projects/Personal/ai-jail";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    organice = {
+      url = "path:/home/iago/Projects/Personal/organice";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
