@@ -8,8 +8,8 @@ _: {
         settings = {
           background-opacity = 1;
           command = lib.getExe pkgs.nushell;
-          font-family = "Google Sans Code";
-          font-size = 20;
+          font-family = "MonoLisaCode";
+          font-size = 16;
           theme = "Gruvbox Material";
         };
       };
