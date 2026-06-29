@@ -50,7 +50,7 @@ let
   fhs =
     {
       zed-editor,
-      additionalPkgs ? pkgs: [ ],
+      additionalPkgs ? _: [ ],
     }:
     buildFHSEnv {
       # also determines the name of the wrapped command
