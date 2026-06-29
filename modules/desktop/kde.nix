@@ -11,7 +11,6 @@
 
       environment.plasma6.excludePackages = with pkgs.kdePackages; [
         elisa
-        gwenview
         khelpcenter
         kmail
         kontact
@@ -49,8 +48,8 @@
           colorScheme = "BreezeDark";
           iconTheme = "Papirus-Dark";
           cursor = {
-            theme = "Breeze_Light";
-            size = 30;
+            theme = "Remus-White";
+            size = 54;
           };
         };
 

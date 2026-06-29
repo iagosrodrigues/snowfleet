@@ -58,6 +58,7 @@ let
     onepassword
     opencode
     personal-git
+    qbittorrent
     rclone
     shell
     ssh

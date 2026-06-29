@@ -38,13 +38,6 @@ in
           homeDirectory = "/home/${username}";
           stateVersion = "25.05";
 
-          pointerCursor = {
-            gtk.enable = true;
-            name = "Breeze_Light";
-            package = pkgs.kdePackages.breeze;
-            size = 30;
-          };
-
           packages = with pkgs; [
             # immersed
             (btop.override { rocmSupport = true; })
@@ -57,6 +50,7 @@ in
             eza
             fd
             ffmpeg
+            file
             fuzzel
             gemini-cli
             gh
@@ -79,19 +73,7 @@ in
             rocmPackages.rocminfo
             statix
             telegram-desktop
-            # transmission_4-gtk ships an unwrapped GTK3 binary; without the
-            # GTK3 gsettings schemas on XDG_DATA_DIRS its file-chooser teardown
-            # hits a fatal g_error ("org.gtk.Settings.FileChooser not installed")
-            # and aborts. Wrap it to inject the schema dir.
-            (symlinkJoin {
-              name = "transmission_4-gtk-wrapped";
-              paths = [ transmission_4-gtk ];
-              nativeBuildInputs = [ makeWrapper ];
-              postBuild = ''
-                wrapProgram $out/bin/transmission-gtk \
-                  --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}"
-              '';
-            })
+            qbittorrent
             unixtools.xxd
             unzip
             vscode
@@ -104,6 +86,8 @@ in
             # Wayland compatibility
             NIXOS_OZONE_WL = "1";
             MOZ_ENABLE_WAYLAND = "1";
+            XCURSOR_THEME = "Remus-White";
+            XCURSOR_SIZE = "54";
             QT_QPA_PLATFORM = "wayland";
             GDK_BACKEND = "wayland";
             GTK_IM_MODULE = "ibus";
