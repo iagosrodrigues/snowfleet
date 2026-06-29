@@ -66,7 +66,7 @@
 
           cursor = {
             xcursor-theme = if pkgs ? macos-tahoe-cursor then "MacOS-Tahoe-Cursor" else "macOS";
-            xcursor-size = 48;
+            xcursor-size = 54;
           };
 
           window-rules = [
