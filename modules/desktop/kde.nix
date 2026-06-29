@@ -27,7 +27,24 @@
     {
       imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
-      home.packages = [ pkgs.papirus-icon-theme ];
+      home = {
+        packages = [ pkgs.papirus-icon-theme ];
+
+        # KDE Plasma state that must survive reboots.
+        # NOTE: panel layout, taskbar launchers, screen-lock and effects are
+        # declared below via plasma-manager, so they are reapplied on every boot
+        # and do NOT need persistence. Only list runtime-generated state here.
+        persistence."/persist".directories = [
+          ".config/kde.org"
+          ".config/kdedefaults"
+          ".local/share/kscreen"
+          ".local/share/plasma"
+          ".local/share/kwalletd"
+        ];
+        persistence."/persist".files = [
+          ".local/share/recently-used.xbel"
+        ];
+      };
 
       programs.plasma = {
         enable = true;
@@ -102,20 +119,5 @@
           "kdeglobals"."KDE"."SingleClick".value = false;
         };
       };
-
-      # KDE Plasma state that must survive reboots.
-      # NOTE: panel layout, taskbar launchers, screen-lock and effects are
-      # declared above via plasma-manager, so they are reapplied on every boot
-      # and do NOT need persistence. Only list runtime-generated state here.
-      home.persistence."/persist".directories = [
-        ".config/kde.org"
-        ".config/kdedefaults"
-        ".local/share/kscreen"
-        ".local/share/plasma"
-        ".local/share/kwalletd"
-      ];
-      home.persistence."/persist".files = [
-        ".local/share/recently-used.xbel"
-      ];
     };
 }

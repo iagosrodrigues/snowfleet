@@ -1,14 +1,14 @@
 _: {
   flake.modules.homeManager.dev-tools = _: {
-    programs.bash.enable = true;
-
-    programs.direnv = {
-      enable = true;
+    programs = {
+      bash.enable = true;
+      direnv = {
+        enable = true;
+        mise.enable = true;
+        nix-direnv.enable = true;
+      };
       mise.enable = true;
-      nix-direnv.enable = true;
     };
-
-    programs.mise.enable = true;
 
     home.persistence."/persist".directories = [
       ".local/share/direnv"

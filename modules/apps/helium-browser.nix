@@ -255,11 +255,13 @@ in
   flake.modules.homeManager.helium-browser =
     { pkgs, ... }:
     {
-      home.packages = [ (pkgs.callPackage heliumBrowserPackage { }) ];
-      home.file.".config/net.imput.helium/NativeMessagingHosts/com.1password.1password.json".text =
-        onePasswordManifest;
-      home.persistence."/persist".directories = [
-        ".config/net.imput.helium"
-      ];
+      home = {
+        packages = [ (pkgs.callPackage heliumBrowserPackage { }) ];
+        file.".config/net.imput.helium/NativeMessagingHosts/com.1password.1password.json".text =
+          onePasswordManifest;
+        persistence."/persist".directories = [
+          ".config/net.imput.helium"
+        ];
+      };
     };
 }
