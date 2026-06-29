@@ -30,6 +30,7 @@ _: {
           text = ''
             helium
             helium-browser
+            helium-wrapper
           '';
           mode = "0755";
         };
