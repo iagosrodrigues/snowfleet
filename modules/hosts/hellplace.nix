@@ -39,6 +39,7 @@ let
     amp
     audio
     brave
+    claude-desktop
     code-cursor
     comfyui
     davinci-resolve

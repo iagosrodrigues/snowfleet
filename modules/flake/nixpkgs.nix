@@ -51,6 +51,7 @@
             code-cursor = final.callPackage ../../pkgs/code-cursor.nix {
               inherit (prev) code-cursor;
             };
+            claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
             sweet-cursors = final.callPackage ../../pkgs/sweet-cursors.nix { };
             # zed-editor = final.callPackage ../../pkgs/zed-editor.nix { };
           }

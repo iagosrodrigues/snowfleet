@@ -23,11 +23,8 @@ _: {
       enable = true;
       enableDefaultConfig = false;
 
-      # settings = {
-      #   identityAgent = "~/.1password/agent.sock";
-      # };
-      matchBlocks."*" = {
-        identityAgent = "~/.1password/agent.sock";
+      settings."*" = {
+        IdentityAgent = "~/.1password/agent.sock";
       };
     };
 

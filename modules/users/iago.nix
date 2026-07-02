@@ -44,6 +44,7 @@ in
             _1password-cli
             android-tools
             cargo
+            claude-desktop
             clang
             code-cursor
             discord
@@ -75,6 +76,7 @@ in
             telegram-desktop
             qbittorrent
             unixtools.xxd
+            unar
             unzip
             vscode
             wl-clipboard
