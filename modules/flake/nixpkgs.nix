@@ -49,7 +49,7 @@
           in
           {
             code-cursor = final.callPackage ../../pkgs/code-cursor.nix {
-              inherit (prev) code-cursor;
+              inherit (prev) code-cursor fish;
             };
             claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
             sweet-cursors = final.callPackage ../../pkgs/sweet-cursors.nix { };

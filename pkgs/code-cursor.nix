@@ -3,6 +3,7 @@
   code-cursor,
   fetchurl,
   appimageTools,
+  fish,
 }:
 
 let
@@ -36,4 +37,12 @@ code-cursor.overrideAttrs (oldAttrs: {
   autoPatchelfIgnoreMissingDeps = (oldAttrs.autoPatchelfIgnoreMissingDeps or [ ]) ++ [
     "libc.musl-x86_64.so.1"
   ];
+
+  # Cursor's agent terminal sandbox mounts tmpfs over /run, hiding
+  # /run/current-system/sw/bin where $SHELL normally points on NixOS.
+  preFixup = (oldAttrs.preFixup or "") + ''
+    gappsWrapperArgs+=(
+      --set SHELL ${fish}/bin/fish
+    )
+  '';
 })
