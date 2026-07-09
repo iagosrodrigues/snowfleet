@@ -52,7 +52,17 @@
       programs.plasma = {
         enable = true;
 
-        powerdevil.AC.autoSuspend.action = "nothing";
+        powerdevil = {
+          AC = {
+            autoSuspend.action = "nothing";
+            turnOffDisplay.idleTimeout = "never";
+            dimDisplay.enable = false;
+          };
+          battery = {
+            turnOffDisplay.idleTimeout = "never";
+            dimDisplay.enable = false;
+          };
+        };
 
         # Never lock the screen
         kscreenlocker = {
