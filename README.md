@@ -13,8 +13,8 @@ discovery.
 - **Secrets** -- [agenix](https://github.com/ryantm/agenix) +
   [agenix-rekey](https://github.com/oddlama/agenix-rekey) (YubiKey master
   identity)
-- **Desktop** -- GNOME (GDM) + [niri](https://github.com/YaLTeR/niri)
-  compositor with [ashell](https://github.com/MalpenZibo/ashell) status bar
+- **Desktop** -- KDE Plasma 6 (SDDM) with plasma-manager; the repo also has
+  GNOME, niri, and ashell modules, not selected on the host
 - **Gaming** -- Steam with Proton-GE, GameMode, WiVRn (wireless VR)
 - **AI/ML** -- Ollama (ROCm), Open WebUI, ComfyUI
 - **AMD GPU** -- ROCm runtime, LACT control, hardware video acceleration
@@ -41,32 +41,21 @@ modules/
 │   ├── tailscale.nix             # Tailscale VPN
 │   └── virtualisation.nix        # Docker, libvirtd, virt-manager
 ├── desktop/                      # Desktop environments
-│   ├── ashell.nix                # Ashell status bar config
-│   ├── gnome.nix                 # GNOME + GDM + dconf + GTK theming
-│   ├── kde.nix                   # KDE Plasma 6 + plasma-manager
-│   └── niri.nix                  # Niri compositor + keybindings
+│   ├── ashell.nix                # Ashell status bar config (not on host)
+│   ├── gnome.nix                 # GNOME + GDM + dconf + GTK (not on host)
+│   ├── kde.nix                   # KDE Plasma 6 + plasma-manager (active)
+│   └── niri.nix                  # Niri compositor + keybindings (not on host)
 ├── gaming/                       # Gaming
 │   ├── gamemode.nix              # Feral GameMode + kernel tuning
 │   ├── steam.nix                 # Steam, Proton-GE, MangoHud
 │   └── vr.nix                    # WiVRn wireless VR
-├── apps/                         # Applications
-│   ├── comfyui.nix               # ComfyUI (ROCm)
-│   ├── ghostty.nix               # Ghostty terminal
-│   ├── git.nix                   # Git aliases + delta + difftool
-│   ├── helium-browser.nix        # Helium browser (AppImage)
-│   ├── ollama.nix                # Ollama AI (Vulkan/ROCm)
-│   ├── onepassword.nix           # 1Password + polkit
-│   ├── opencode-desktop.nix      # OpenCode Desktop (Tauri)
-│   ├── personal-git.nix          # Personal git identity (agenix + 1Password SSH signing)
-│   ├── work-git.nix              # Work git identity (conditional include)
-│   └── zed.nix                   # Zed editor
-├── cli/                          # CLI tools
-│   ├── dev-tools.nix             # direnv + mise
-│   ├── shell.nix                 # Fish + Starship + zoxide
-│   ├── ssh.nix                   # SSH via 1Password agent
-│   └── tmux.nix                  # tmux
-├── theming/                      # Theme modules
-└── private/                      # No-op placeholder
+├── apps/                         # Application modules (browsers, editors, AI tools, git, …)
+└── cli/                          # CLI tools
+    ├── dev-tools.nix             # direnv + mise
+    ├── shell.nix                 # Fish + Starship + zoxide
+    ├── ssh.nix                   # SSH via 1Password agent
+    ├── tmux.nix                  # tmux
+    └── zellij.nix                # Zellij
 secrets/                          # Encrypted secrets (agenix .age files)
 disko/                            # Declarative disk partitioning
 ```
@@ -91,7 +80,8 @@ let
 in {
   flake.nixosConfigurations.hellplace = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    modules = (with nixos; [ audio fonts gnome niri steam ... ])
+    modules = (with nixos; [ audio fonts kde steam ... ])
+      ++ [ nixos.hellplace ]  # hardware module export key
       ++ [{ home-manager.sharedModules = with hm; [ ghostty git zed ... ]; }];
   };
 }
@@ -119,8 +109,8 @@ _: {
 
 # Combined (NixOS + HM in one file)
 { inputs, ... }: {
-  flake.modules.nixos.gnome = { pkgs, ... }: { ... };
-  flake.modules.homeManager.gnome = { lib, ... }: { ... };
+  flake.modules.nixos.kde = { pkgs, ... }: { ... };
+  flake.modules.homeManager.kde = { lib, ... }: { ... };
 }
 ```
 

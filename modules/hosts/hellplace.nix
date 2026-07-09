@@ -24,7 +24,6 @@ let
     ollama
     onepassword
     printing
-    private
     shell
     ssh
     steam

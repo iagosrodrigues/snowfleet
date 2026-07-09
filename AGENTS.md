@@ -72,12 +72,10 @@ modules/
 ├── hardware/                     # Machine-specific hardware configs
 ├── users/                        # User definitions
 ├── system/                       # NixOS system modules (audio, fonts, networking, etc.)
-├── desktop/                      # Desktop environments (kde, niri, gnome, ashell)
-├── gaming/                       # Gaming modules (steam, gamemode, graphics, vr)
+├── desktop/                      # Desktop environments (kde active on host; niri, gnome, ashell present)
+├── gaming/                       # Gaming modules (steam, gamemode, vr)
 ├── apps/                         # Application modules (browsers, ghostty, git, etc.)
-├── cli/                          # CLI tool modules (shell, tmux, dev-tools)
-├── theming/                      # Theme modules
-└── private/                      # Legacy no-op module (kept for compatibility)
+└── cli/                          # CLI tool modules (shell, tmux, dev-tools)
 secrets/                          # agenix source secrets + rekeyed host outputs
 disko/                            # Declarative disk partitioning configs
 ```
@@ -166,12 +164,12 @@ let
   hm = config.flake.modules.homeManager;
 
   nixosModules = with nixos; [ audio fonts networking kde ] ++ [
-    nixos.hellplace-hardware
+    nixos.hellplace  # hardware module (export key matches hostname today)
     inputs.disko.nixosModules.disko
     { networking.hostName = "hellplace"; }  # inline anonymous module
   ];
 
-  hmModules = with hm; [ browsers ghostty kde ] ++ [
+  hmModules = with hm; [ ghostty git kde ] ++ [
     { home.persistence."/persist".directories = [ "Downloads" ]; }
   ];
 in {
@@ -187,9 +185,9 @@ Hosts use **selective composition** — explicitly listing which modules to incl
 ## Naming Conventions
 
 - **File names**: `kebab-case.nix` (e.g., `io-schedulers.nix`, `dev-tools.nix`)
-- **Module keys**: `kebab-case` (e.g., `gaming-graphics`, `nix-settings`, `mouse-config`)
+- **Module keys**: `kebab-case` (e.g., `nix-settings`, `io-schedulers`)
 - **Module key ≠ filename**: `system/nix.nix` exports `flake.modules.nixos.nix-settings`
-- **Hardware modules**: named `<hostname>-hardware` (e.g., `hellplace-hardware`)
+- **Hardware modules**: today `hardware/hellplace.nix` exports `flake.modules.nixos.hellplace` (hostname key)
 - **No custom options**: This codebase does not use `mkOption` / `options = {}` blocks — all configuration is plain attribute assignment against existing NixOS/HM options
 
 ## Code Style

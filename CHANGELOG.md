@@ -4,6 +4,10 @@ All notable changes to this configuration will be documented here.
 
 ## [Unreleased]
 
+### chore
+- Remove no-op `modules/private/` and drop it from the hellplace NixOS module list (was empty `{}` — no behavior change)
+- Sync README and AGENTS.md with the real tree: desktop is KDE Plasma 6 on hellplace; remove non-existent `theming/` and `private/`; fix host composition examples and hardware export key (`nixos.hellplace`)
+
 ### ci
 - Replace `nix fmt -- --check .` with `nix run nixpkgs#nixfmt-tree -- treefmt --ci .` in the format check job, adopting the official `nixfmt-tree`/`treefmt` toolchain with proper CI mode
 
