@@ -65,7 +65,7 @@
           outputs."DP-1".mode = "2560x1440@74.924";
 
           cursor = {
-            xcursor-theme = if pkgs ? macos-tahoe-cursor then "MacOS-Tahoe-Cursor" else "macOS";
+            xcursor-theme = "macOS";
             xcursor-size = 54;
           };
 

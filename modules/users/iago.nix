@@ -47,6 +47,7 @@ in
             claude-desktop
             clang
             code-cursor
+            apple-cursor
             discord
             eza
             fd
@@ -88,7 +89,7 @@ in
             # Wayland compatibility
             NIXOS_OZONE_WL = "1";
             MOZ_ENABLE_WAYLAND = "1";
-            XCURSOR_THEME = "Remus-White";
+            XCURSOR_THEME = "macOS";
             XCURSOR_SIZE = "54";
             QT_QPA_PLATFORM = "wayland";
             GDK_BACKEND = "wayland";

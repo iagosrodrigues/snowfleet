@@ -28,7 +28,10 @@
       imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
       home = {
-        packages = [ pkgs.papirus-icon-theme ];
+        packages = [
+          pkgs.apple-cursor
+          pkgs.papirus-icon-theme
+        ];
 
         # KDE Plasma state that must survive reboots.
         # NOTE: panel layout, taskbar launchers, screen-lock and effects are
@@ -65,7 +68,7 @@
           colorScheme = "BreezeDark";
           iconTheme = "Papirus-Dark";
           cursor = {
-            theme = "Remus-White";
+            theme = "macOS";
             size = 54;
           };
         };
