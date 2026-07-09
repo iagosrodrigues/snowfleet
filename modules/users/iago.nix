@@ -44,7 +44,6 @@ in
             _1password-cli
             android-tools
             cargo
-            claude-desktop
             clang
             code-cursor
             apple-cursor
@@ -65,9 +64,12 @@ in
             nodejs
             oversteer
             p7zip
+            pkgs.llm-agents.claude-desktop
             pkgs.llm-agents.claude-code
             pkgs.llm-agents.codex
             pkgs.llm-agents.crush
+            pkgs.llm-agents.grok
+            pkgs.llm-agents.pi
             proton-vpn
             python3
             ripgrep
