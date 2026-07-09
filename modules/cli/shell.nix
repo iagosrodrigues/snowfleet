@@ -37,6 +37,9 @@ _: {
       };
     in
     {
+      home.sessionVariables.EDITOR = "nvim";
+      systemd.user.sessionVariables.EDITOR = "nvim";
+
       programs = {
         fish = {
           enable = true;

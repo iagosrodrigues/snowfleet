@@ -33,6 +33,20 @@
           pkgs.papirus-icon-theme
         ];
 
+        sessionVariables = {
+          # Wayland compatibility for Electron / Firefox / Qt / GTK apps
+          NIXOS_OZONE_WL = "1";
+          MOZ_ENABLE_WAYLAND = "1";
+          QT_QPA_PLATFORM = "wayland";
+          GDK_BACKEND = "wayland";
+          # Cursor (matches programs.plasma.workspace.cursor below)
+          XCURSOR_THEME = "macOS";
+          XCURSOR_SIZE = "54";
+          # Input method
+          GTK_IM_MODULE = "ibus";
+          QT_IM_MODULE = "ibus";
+        };
+
         # KDE Plasma state that must survive reboots.
         # NOTE: panel layout, taskbar launchers, screen-lock and effects are
         # declared below via plasma-manager, so they are reapplied on every boot

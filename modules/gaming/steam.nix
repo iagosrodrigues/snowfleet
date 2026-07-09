@@ -28,10 +28,14 @@ _: {
       };
     };
 
-  flake.modules.homeManager.steam = _: {
-    home.persistence."/persist".directories = [
-      ".local/share/Steam"
-      ".cache/mesa_shader_cache"
-    ];
-  };
+  flake.modules.homeManager.steam =
+    { config, ... }:
+    {
+      home.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "${config.home.homeDirectory}/.steam/root/compatibilitytools.d";
+
+      home.persistence."/persist".directories = [
+        ".local/share/Steam"
+        ".cache/mesa_shader_cache"
+      ];
+    };
 }

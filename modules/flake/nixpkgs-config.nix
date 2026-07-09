@@ -21,6 +21,7 @@
             inherit (prev) code-cursor fish;
           };
           claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
+          helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
           sweet-cursors = final.callPackage ../../pkgs/sweet-cursors.nix { };
           # Dead custom package lives in archive/pkgs/zed-editor.nix (stock programs.zed-editor is used).
         })

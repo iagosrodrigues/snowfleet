@@ -1,7 +1,11 @@
 _: {
-  flake.modules.homeManager.telegram = _: {
-    home.persistence."/persist".directories = [
-      ".local/share/TelegramDesktop"
-    ];
-  };
+  flake.modules.homeManager.telegram =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.telegram-desktop ];
+
+      home.persistence."/persist".directories = [
+        ".local/share/TelegramDesktop"
+      ];
+    };
 }

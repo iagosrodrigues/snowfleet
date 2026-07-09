@@ -33,6 +33,7 @@ in
         shell
         ssh
         dev-tools
+        essentials
         user-persistence
         tmux
         zellij
