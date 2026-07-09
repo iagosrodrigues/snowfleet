@@ -18,8 +18,8 @@ discovery.
 - **Secrets** -- [agenix](https://github.com/ryantm/agenix) +
   [agenix-rekey](https://github.com/oddlama/agenix-rekey) (YubiKey master
   identity)
-- **Desktop** -- KDE Plasma 6 (SDDM) with plasma-manager; experimental DE
-  modules (GNOME, niri, ashell) live under `archive/desktop/`
+- **Desktop** -- KDE Plasma 6 (`plasma-login-manager`) with plasma-manager;
+  experimental DE modules (GNOME, niri, ashell) live under `archive/desktop/`
 - **Gaming** -- Steam with Proton-GE, GameMode, WiVRn (wireless VR)
 - **AI/ML** -- Ollama (ROCm), Open WebUI, ComfyUI
 - **AMD GPU** -- ROCm runtime, LACT control, hardware video acceleration
@@ -176,9 +176,9 @@ To evaluate or build on another machine you must either:
 
 1. Clone those repos at the same absolute paths, or
 2. Override the inputs (`--override-input ai-jail …`, or edit `flake.nix`), or
-3. Drop `profiles.personal` from `modules/hosts/hellplace/default.nix` and
-   remove/replace the path inputs (modules stay registered; the host simply
-   stops selecting them).
+3. Drop `profiles.personal` from `modules/hosts/hellplace/default.nix` **and**
+   remove or override the absolute `path:` inputs in `flake.nix`. Dropping the
+   profile alone does not skip input resolution.
 
 Public value is the **composition model** (import-tree → registered modules →
 named profiles → host), not a hydra-pure `nix build` for arbitrary clones.

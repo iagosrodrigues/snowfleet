@@ -298,4 +298,7 @@ Hosts use **selective composition** via named profiles — not
 - **"infinite recursion"**: Check for circular references between modules.
 - **xorg deprecation warnings**: Any module referencing `pkgs.xorg.libX*` at evaluation time triggers these. Use top-level package names (e.g., `libx11`) instead of `xorg.libX11`.
 - **Don't use `pkgs.xorg.*`**: The xorg attribute set is deprecated in nixpkgs-unstable. Reference X11 libs directly (e.g., `pkgs.libx11`, `pkgs.libxrandr`).
-- **Path inputs missing**: `ai-jail` / `organice` must exist at the absolute paths in `flake.nix`, or override/remove the `personal` profile before evaluating.
+- **Path inputs missing**: `ai-jail` / `organice` are absolute `path:` inputs in
+  `flake.nix`. Flake evaluation resolves those inputs even if you drop the
+  `personal` profile from the host — you still need the checkouts on disk, or
+  change/remove the inputs (and any modules that reference them) for a portable eval.
