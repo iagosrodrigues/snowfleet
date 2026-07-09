@@ -22,7 +22,7 @@
           };
           claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
           sweet-cursors = final.callPackage ../../pkgs/sweet-cursors.nix { };
-          # zed-editor = final.callPackage ../../pkgs/zed-editor.nix { };
+          # Dead custom package lives in archive/pkgs/zed-editor.nix (stock programs.zed-editor is used).
         })
       ];
     };

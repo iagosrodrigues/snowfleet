@@ -27,6 +27,7 @@ let
     shell
     ssh
     steam
+    gamemode
     tailscale
     virtualisation
     vr

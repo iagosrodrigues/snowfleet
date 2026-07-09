@@ -72,10 +72,11 @@ modules/
 ├── hardware/                     # Machine-specific hardware configs
 ├── users/                        # User definitions
 ├── system/                       # NixOS system modules (audio, fonts, networking, etc.)
-├── desktop/                      # Desktop environments (kde active on host; niri, gnome, ashell present)
+├── desktop/                      # Desktop environments (kde on host; experimental DEs in archive/)
 ├── gaming/                       # Gaming modules (steam, gamemode, vr)
 ├── apps/                         # Application modules (browsers, ghostty, git, etc.)
 └── cli/                          # CLI tool modules (shell, tmux, dev-tools)
+archive/                          # Unused modules/pkgs outside import-tree (see archive/README.md)
 secrets/                          # agenix source secrets + rekeyed host outputs
 disko/                            # Declarative disk partitioning configs
 ```
@@ -149,10 +150,10 @@ When a concern spans both system and user level, define both in the same file:
 ### One file can export multiple modules
 
 ```nix
-# desktop/niri.nix exports three separate modules:
-flake.modules.nixos.niri = ...;
-flake.modules.homeManager.niri = ...;
-flake.modules.homeManager.niri-config = ...;
+# e.g. a desktop module can export both NixOS and Home-Manager sides:
+flake.modules.nixos.example = ...;
+flake.modules.homeManager.example = ...;
+flake.modules.homeManager.example-config = ...;
 ```
 
 ### Host definition pattern

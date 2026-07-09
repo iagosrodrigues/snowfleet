@@ -13,8 +13,8 @@ discovery.
 - **Secrets** -- [agenix](https://github.com/ryantm/agenix) +
   [agenix-rekey](https://github.com/oddlama/agenix-rekey) (YubiKey master
   identity)
-- **Desktop** -- KDE Plasma 6 (SDDM) with plasma-manager; the repo also has
-  GNOME, niri, and ashell modules, not selected on the host
+- **Desktop** -- KDE Plasma 6 (SDDM) with plasma-manager; experimental DE
+  modules (GNOME, niri, ashell) live under `archive/desktop/`
 - **Gaming** -- Steam with Proton-GE, GameMode, WiVRn (wireless VR)
 - **AI/ML** -- Ollama (ROCm), Open WebUI, ComfyUI
 - **AMD GPU** -- ROCm runtime, LACT control, hardware video acceleration
@@ -40,11 +40,8 @@ modules/
 │   ├── printing.nix              # CUPS
 │   ├── tailscale.nix             # Tailscale VPN
 │   └── virtualisation.nix        # Docker, libvirtd, virt-manager
-├── desktop/                      # Desktop environments
-│   ├── ashell.nix                # Ashell status bar config (not on host)
-│   ├── gnome.nix                 # GNOME + GDM + dconf + GTK (not on host)
-│   ├── kde.nix                   # KDE Plasma 6 + plasma-manager (active)
-│   └── niri.nix                  # Niri compositor + keybindings (not on host)
+├── desktop/                      # Desktop environments (active on host)
+│   └── kde.nix                   # KDE Plasma 6 + plasma-manager
 ├── gaming/                       # Gaming
 │   ├── gamemode.nix              # Feral GameMode + kernel tuning
 │   ├── steam.nix                 # Steam, Proton-GE, MangoHud
@@ -56,6 +53,10 @@ modules/
     ├── ssh.nix                   # SSH via 1Password agent
     ├── tmux.nix                  # tmux
     └── zellij.nix                # Zellij
+archive/                          # Unused/experimental modules outside import-tree
+├── desktop/                      # niri, gnome, ashell
+├── apps/                         # nixvim
+└── pkgs/                         # zed-editor (custom FHS wrapper)
 secrets/                          # Encrypted secrets (agenix .age files)
 disko/                            # Declarative disk partitioning
 ```
