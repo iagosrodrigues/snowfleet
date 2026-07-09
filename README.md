@@ -26,7 +26,10 @@ flake.nix                         # Minimal entry point
 modules/
 ├── flake/                        # Flake infrastructure (nixpkgs, devshell, home-manager base)
 ├── hosts/                        # Host definitions (nixosConfigurations)
-│   └── hellplace.nix             # Main workstation
+│   └── hellplace/                # Main workstation
+│       ├── default.nix           # Composes profiles + host-specific stack
+│       ├── profiles.nix          # Named module profiles (core, desktop-kde, …)
+│       └── secrets.nix           # Host age secrets
 ├── hardware/                     # Machine-specific hardware configs
 ├── users/                        # User definitions
 ├── system/                       # NixOS system modules
@@ -73,20 +76,41 @@ disko/                            # Declarative disk partitioning
    that is registered but not listed in a host's module list has no effect on
    the built system.
 
+### Host composes profiles
+
+Hellplace does not list every module inline. Named profiles live in
+`modules/hosts/hellplace/profiles.nix` as `flake.profiles.hellplace.*` (NixOS
++ Home-Manager lists per bundle). The host concatenates those lists and adds
+host-only pieces (hardware, secrets, disko, impermanence, hostname).
+
+Profiles today: `core`, `desktop-kde`, `gaming`, `ai`, `apps-daily`.
+
 ```nix
 # modules/hosts/hellplace/default.nix (simplified)
 let
-  nixos = config.flake.modules.nixos;
-  hm = config.flake.modules.homeManager;
+  inherit (config.flake.modules) nixos;
+  profiles = config.flake.profiles.hellplace;
+
+  sharedNixosModules =
+    profiles.core.nixos
+    ++ profiles.desktop-kde.nixos
+    ++ profiles.gaming.nixos
+    ++ profiles.ai.nixos
+    ++ profiles.apps-daily.nixos;
 in {
   flake.nixosConfigurations.hellplace = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    modules = (with nixos; [ audio fonts kde steam ... ])
-      ++ [ nixos.hellplace-hardware ]  # hardware module export key
-      ++ [{ home-manager.sharedModules = with hm; [ ghostty git zed ... ]; }];
+    modules =
+      sharedNixosModules
+      ++ [ nixos.hellplace-hardware nixos.hellplace-secrets /* disko, … */ ]
+      ++ [{ home-manager.sharedModules = /* same pattern for .hm lists */; }];
   };
 }
 ```
+
+Every `.nix` under `modules/` is a flake-parts module (import-tree). Profile
+data is therefore exposed via `flake.profiles.*`, not as a pure function file
+or raw NixOS module.
 
 ### Module patterns
 
@@ -184,7 +208,9 @@ See `secrets/README.md` for the full workflow.
 1. Create a file under the appropriate directory (e.g. `modules/system/bluetooth.nix`)
 2. Export to `flake.modules.nixos.<key>` and/or `flake.modules.homeManager.<key>`
 3. `git add` the file (flake evaluation only sees tracked files)
-4. Add the module key to the host's module list in `modules/hosts/hellplace/`
+4. Add the module key to the appropriate profile in
+   `modules/hosts/hellplace/profiles.nix` (or to the host-only stack in
+   `modules/hosts/hellplace/default.nix` for machine-specific pieces)
 5. `nix flake check && nixos-rebuild build --flake .#hellplace`
 
 ## License

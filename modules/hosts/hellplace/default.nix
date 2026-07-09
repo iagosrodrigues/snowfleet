@@ -5,92 +5,22 @@
 }:
 let
   inherit (config.flake.modules) nixos;
-  hm = config.flake.modules.homeManager;
+  profiles = config.flake.profiles.hellplace;
 
-  sharedNixosModules = with nixos; [
-    # --- core ---
-    agenix
-    home-manager-base
-    iago
-    impermanence-base
-    networking
-    nix-settings
-    nixpkgs-config
-    # --- hardware / platform ---
-    io-schedulers
-    lact
-    yubikey
-    # --- desktop ---
-    kde
-    # --- services ---
-    audio
-    fonts
-    printing
-    shell
-    ssh
-    tailscale
-    virtualisation
-    # --- apps (system side) ---
-    ai-jail
-    ollama
-    onepassword
-    # --- gaming ---
-    steam
-    gamemode
-    vr
-  ];
+  # Host composes named profiles + host-specific exceptions (hardware, secrets, disk).
+  sharedNixosModules =
+    profiles.core.nixos
+    ++ profiles.desktop-kde.nixos
+    ++ profiles.gaming.nixos
+    ++ profiles.ai.nixos
+    ++ profiles.apps-daily.nixos;
 
-  sharedHmModules = with hm; [
-    # --- core / shell ---
-    shell
-    ssh
-    dev-tools
-    user-persistence
-    tmux
-    zellij
-    # --- desktop ---
-    kde
-    audio
-    # --- vcs ---
-    git
-    personal-git
-    work-git
-    jujutsu
-    # --- terminal / editors ---
-    ghostty
-    vscode
-    zed
-    code-cursor
-    intellij
-    opencode
-    amp
-    # --- browsers ---
-    brave
-    helium-browser
-    # --- AI ---
-    # claude-desktop intentionally omitted: main installs via llm-agents (e9ba5d9)
-    ai-tools
-    ollama
-    lmstudio
-    comfyui
-    # --- apps / media ---
-    discord
-    telegram
-    onepassword
-    organice
-    qbittorrent
-    rclone
-    obs-studio
-    davinci-resolve
-    mongodb-compass
-    # --- gaming ---
-    steam
-    vr
-    godot
-    # --- services / platform ---
-    tailscale
-    virtualisation
-  ];
+  sharedHmModules =
+    profiles.core.hm
+    ++ profiles.desktop-kde.hm
+    ++ profiles.gaming.hm
+    ++ profiles.ai.hm
+    ++ profiles.apps-daily.hm;
 in
 {
   flake.nixosConfigurations.hellplace = inputs.nixpkgs.lib.nixosSystem {
