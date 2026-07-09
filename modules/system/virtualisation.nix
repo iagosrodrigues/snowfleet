@@ -18,6 +18,13 @@ _: {
         };
       };
 
+      # Trust traffic from docker bridges only. Containers already sit behind
+      # the host; this adds no external exposure.
+      networking.firewall.trustedInterfaces = [
+        "docker0"
+        "br-+"
+      ];
+
       environment.systemPackages = with pkgs; [
         virt-manager
       ];
