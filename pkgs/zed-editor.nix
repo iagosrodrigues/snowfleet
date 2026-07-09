@@ -97,7 +97,7 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zed-editor";
-  version = "0.233.5";
+  version = "1.10.0";
 
   outputs = [
     "out"
@@ -110,7 +110,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "zed-industries";
     repo = "zed";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-sMjl0WRLYIshN9TIBqu6wFnTohIKGyxalT6+vmVwX+E=";
+    hash = "sha256-KLoowntT7rrUWJdZ+uA2qvKih+Ygo58RIxd5jR7fFYE=";
   };
 
   postPatch = ''
