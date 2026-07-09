@@ -1,5 +1,5 @@
 _: {
-  flake.modules.nixos.hellplace =
+  flake.modules.nixos.hellplace-hardware =
     {
       lib,
       pkgs,

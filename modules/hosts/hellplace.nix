@@ -78,7 +78,7 @@ let
   diskoConfig = import ../../disko/hellplace.nix;
 
   nixosModules = sharedNixosModules ++ [
-    nixos.hellplace
+    nixos.hellplace-hardware
     inputs.disko.nixosModules.disko
     inputs.impermanence.nixosModules.impermanence
     diskoConfig

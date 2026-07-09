@@ -164,7 +164,7 @@ let
   hm = config.flake.modules.homeManager;
 
   nixosModules = with nixos; [ audio fonts networking kde ] ++ [
-    nixos.hellplace  # hardware module (export key matches hostname today)
+    nixos.hellplace-hardware  # hardware module (filename may keep hostname)
     inputs.disko.nixosModules.disko
     { networking.hostName = "hellplace"; }  # inline anonymous module
   ];
@@ -186,8 +186,8 @@ Hosts use **selective composition** — explicitly listing which modules to incl
 
 - **File names**: `kebab-case.nix` (e.g., `io-schedulers.nix`, `dev-tools.nix`)
 - **Module keys**: `kebab-case` (e.g., `nix-settings`, `io-schedulers`)
-- **Module key ≠ filename**: `system/nix.nix` exports `flake.modules.nixos.nix-settings`
-- **Hardware modules**: today `hardware/hellplace.nix` exports `flake.modules.nixos.hellplace` (hostname key)
+- **Prefer filename = key**: e.g. `system/nix-settings.nix` exports `flake.modules.nixos.nix-settings`. Legacy exceptions: none.
+- **Hardware modules**: `hardware/hellplace.nix` exports `flake.modules.nixos.hellplace-hardware` (host-scoped hardware key; filename may keep the hostname)
 - **No custom options**: This codebase does not use `mkOption` / `options = {}` blocks — all configuration is plain attribute assignment against existing NixOS/HM options
 
 ## Code Style

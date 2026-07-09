@@ -36,7 +36,7 @@ modules/
 │   ├── io-schedulers.nix         # I/O scheduler tuning per device type
 │   ├── lact.nix                  # AMD GPU control daemon
 │   ├── networking.nix            # NetworkManager, locale, timezone
-│   ├── nix.nix                   # Nix settings, caches, GC
+│   ├── nix-settings.nix          # Nix settings, caches, GC
 │   ├── printing.nix              # CUPS
 │   ├── tailscale.nix             # Tailscale VPN
 │   └── virtualisation.nix        # Docker, libvirtd, virt-manager
@@ -81,7 +81,7 @@ in {
   flake.nixosConfigurations.hellplace = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = (with nixos; [ audio fonts kde steam ... ])
-      ++ [ nixos.hellplace ]  # hardware module export key
+      ++ [ nixos.hellplace-hardware ]  # hardware module export key
       ++ [{ home-manager.sharedModules = with hm; [ ghostty git zed ... ]; }];
   };
 }
