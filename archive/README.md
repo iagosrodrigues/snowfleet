@@ -9,7 +9,7 @@ or evaluated as part of the hellplace system.
 Keep experimental / unused modules and dead packages in git history with a
 clear home, without polluting the hot path under `modules/`. Hellplace only
 selects modules that live under `modules/` and are listed in
-`modules/hosts/hellplace.nix`.
+`modules/hosts/hellplace/`.
 
 ## How to reactivate
 
@@ -20,7 +20,7 @@ selects modules that live under `modules/` and are listed in
 2. `git add` the restored path (flake evaluation only sees tracked files).
 3. Wire it in:
    - **Modules:** add the export key to the host's NixOS/HM module list in
-     `modules/hosts/hellplace.nix` (or a future profile).
+     `modules/hosts/hellplace/` (or a future profile).
    - **Packages:** re-enable the overlay line in
      `modules/flake/nixpkgs-config.nix` if needed.
 4. Validate:

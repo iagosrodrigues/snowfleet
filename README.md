@@ -74,7 +74,7 @@ disko/                            # Declarative disk partitioning
    the built system.
 
 ```nix
-# modules/hosts/hellplace.nix (simplified)
+# modules/hosts/hellplace/default.nix (simplified)
 let
   nixos = config.flake.modules.nixos;
   hm = config.flake.modules.homeManager;
@@ -184,7 +184,7 @@ See `secrets/README.md` for the full workflow.
 1. Create a file under the appropriate directory (e.g. `modules/system/bluetooth.nix`)
 2. Export to `flake.modules.nixos.<key>` and/or `flake.modules.homeManager.<key>`
 3. `git add` the file (flake evaluation only sees tracked files)
-4. Add the module key to the host's module list in `modules/hosts/hellplace.nix`
+4. Add the module key to the host's module list in `modules/hosts/hellplace/`
 5. `nix flake check && nixos-rebuild build --flake .#hellplace`
 
 ## License
