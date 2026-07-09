@@ -8,7 +8,7 @@ _: {
         settings = {
           background-opacity = 1;
           command = lib.getExe pkgs.nushell;
-          font-family = "MonoLisaCode";
+          font-family = "JetbrainsMono Nerd Font";
           font-size = 16;
           theme = "Gruvbox Material";
         };
