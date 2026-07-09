@@ -69,7 +69,6 @@ in
 
     ai = {
       nixos = with nixos; [
-        ai-jail
         ollama
       ];
       hm = with hm; [
@@ -106,12 +105,22 @@ in
         discord
         telegram
         onepassword
-        organice
         qbittorrent
         rclone
         obs-studio
         davinci-resolve
         mongodb-compass
+      ];
+    };
+
+    # Non-portable: modules that need local sibling flake checkouts
+    # (see flake.nix path inputs + README "Personal flake").
+    personal = {
+      nixos = with nixos; [
+        ai-jail
+      ];
+      hm = with hm; [
+        organice
       ];
     };
   };

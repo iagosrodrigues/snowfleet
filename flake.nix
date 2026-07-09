@@ -40,6 +40,9 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Personal path inputs (not portable). Require sibling checkouts at the
+    # absolute paths below. Consumed only by modules in the hellplace
+    # `personal` profile (ai-jail, organice). See README "Personal flake".
     ai-jail = {
       url = "path:/home/iago/Projects/Personal/ai-jail";
       inputs.nixpkgs.follows = "nixpkgs";

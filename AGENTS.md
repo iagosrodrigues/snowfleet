@@ -4,12 +4,19 @@ This file provides guidance for AI coding agents working in this repository.
 
 ## Repository Overview
 
-A NixOS configuration using **flake-parts** for modular flake structure and **import-tree** for automatic module discovery.
+A **personal** NixOS configuration using **flake-parts** for modular flake
+structure and **import-tree** for automatic module discovery. Patterns are the
+reference; absolute `path:` inputs (`ai-jail`, `organice`) require sibling
+checkouts — see README *Personal flake / path inputs*.
 
 How loading works — two distinct steps:
 
 1. **`import-tree` auto-evaluates** every `.nix` file under `modules/` as a flake-parts module, which registers each file's `flake.modules.nixos.*` / `flake.modules.homeManager.*` entries into the flake-parts config. New files must be `git add`-ed to be seen.
 2. **Hosts explicitly select** which registered modules to actually include in the NixOS system build. A module that is registered but not listed in the host's module list has **no effect** on the built system.
+
+Named profiles live in `modules/hosts/hellplace/profiles.nix` as
+`flake.profiles.hellplace.*` (lists of registered module keys). The host
+concatenates profiles plus host-only pieces (hardware, secrets, disko).
 
 ## Build / Check Commands
 
@@ -65,12 +72,16 @@ nrt   # sudo nixos-rebuild test   --flake .#(hostname) | nix-output-monitor
 ## Architecture
 
 ```
-flake.nix                         # Minimal entry point (~35 lines)
+flake.nix                         # Minimal entry point (inputs + import-tree)
 modules/
 ├── flake/                        # Flake infrastructure (nixpkgs, devshell, home-manager base)
-├── hosts/                        # Host definitions (nixosConfigurations outputs)
+├── hosts/
+│   └── hellplace/                # Host definition
+│       ├── default.nix           # nixosConfigurations.hellplace
+│       ├── profiles.nix          # flake.profiles.hellplace.* (core, desktop-kde, gaming, ai, apps-daily, personal)
+│       └── secrets.nix           # Host age secrets
 ├── hardware/                     # Machine-specific hardware configs
-├── users/                        # User definitions
+├── users/                        # User definitions + user-persistence
 ├── system/                       # NixOS system modules (audio, fonts, networking, etc.)
 ├── desktop/                      # Desktop environments (kde on host; experimental DEs in archive/)
 ├── gaming/                       # Gaming modules (steam, gamemode, vr)
@@ -79,11 +90,28 @@ modules/
 ├── ai/                           # AI/ML services & tools (ollama, comfyui, lmstudio, …)
 ├── vcs/                          # Version control (git, jujutsu, personal/work git)
 ├── apps/                         # Remaining GUI apps (discord, telegram, godot, obs, …)
-└── cli/                          # CLI tools + terminal (ghostty, shell, tmux, dev-tools)
+└── cli/                          # CLI tools + terminal (ghostty, shell, tmux, essentials, …)
+pkgs/                             # Custom packages (callPackage); overlay via flake/nixpkgs-config
 archive/                          # Unused modules/pkgs outside import-tree (see archive/README.md)
 secrets/                          # agenix source secrets + rekeyed host outputs
 disko/                            # Declarative disk partitioning configs
 ```
+
+### Where does X go?
+
+| What | Where |
+|------|--------|
+| Preferences / config for an app | Module under `modules/<domain>/` |
+| Binary-only package (no real config) | `cli/dev-tools` or a thin `apps/` module — **never** both plus the user module |
+| Custom package derivation | `pkgs/<name>.nix` + overlay in `flake/nixpkgs-config.nix` |
+| Host composition | `modules/hosts/<name>/` (profiles + host-only stack) |
+| Experimental / not used on the default host | `archive/` (outside import-tree) **or** a profile the host does not import |
+| Encrypted secrets | `secrets/*.age` + rekey under `secrets/rekeyed/<host>/` |
+| Disk layout | `disko/<host>.nix` |
+| Non-portable local path flakes | Document in `flake.nix`; select via profile `personal` |
+
+Profiles on hellplace: `core`, `desktop-kde`, `gaming`, `ai`, `apps-daily`,
+`personal` (`ai-jail` + `organice` — path inputs).
 
 ## Module Patterns
 
@@ -165,16 +193,20 @@ flake.modules.homeManager.example-config = ...;
 ```nix
 { inputs, config, ... }:
 let
-  nixos = config.flake.modules.nixos;
-  hm = config.flake.modules.homeManager;
+  inherit (config.flake.modules) nixos;
+  profiles = config.flake.profiles.hellplace;
 
-  nixosModules = with nixos; [ audio fonts networking kde ] ++ [
-    nixos.hellplace-hardware  # hardware module (filename may keep hostname)
-    inputs.disko.nixosModules.disko
-    { networking.hostName = "hellplace"; }  # inline anonymous module
-  ];
+  nixosModules =
+    profiles.core.nixos
+    ++ profiles.desktop-kde.nixos
+    ++ profiles.personal.nixos
+    ++ [
+      nixos.hellplace-hardware
+      inputs.disko.nixosModules.disko
+      { networking.hostName = "hellplace"; }
+    ];
 
-  hmModules = with hm; [ ghostty git kde ] ++ [
+  hmModules = profiles.core.hm ++ profiles.personal.hm ++ [
     { home.persistence."/persist".directories = [ "Downloads" ]; }
   ];
 in {
@@ -185,7 +217,8 @@ in {
 }
 ```
 
-Hosts use **selective composition** — explicitly listing which modules to include — not `builtins.attrValues` of all modules.
+Hosts use **selective composition** via named profiles — not
+`builtins.attrValues` of all modules.
 
 ## Naming Conventions
 
@@ -252,6 +285,7 @@ Hosts use **selective composition** — explicitly listing which modules to incl
 - New module files and new secret files must be tracked (`git add`) before evaluation/rekey workflows can see them.
 - Do not commit plaintext secrets, hashes, tokens, or private keys in `.nix` files.
 - Prefer storing personal Git identity/account values in agenix-backed files (e.g., include file under `/run/agenix/...`) instead of inline config.
+- Do not commit scratch under `.superpowers/` (agent SDD notes); keep that local only.
 
 ## General Guidance for Agents
 
@@ -260,7 +294,8 @@ Hosts use **selective composition** — explicitly listing which modules to incl
 ## Common Pitfalls
 
 - **New file not picked up**: Run `git add <file>` — flake evaluation only sees git-tracked files.
-- **"attribute X missing"**: Verify the module exports to `flake.modules.nixos.<key>` or `flake.modules.homeManager.<key>` **and** the host explicitly lists that key in its module list.
+- **"attribute X missing"**: Verify the module exports to `flake.modules.nixos.<key>` or `flake.modules.homeManager.<key>` **and** the host explicitly lists that key in its module list (usually via a profile).
 - **"infinite recursion"**: Check for circular references between modules.
 - **xorg deprecation warnings**: Any module referencing `pkgs.xorg.libX*` at evaluation time triggers these. Use top-level package names (e.g., `libx11`) instead of `xorg.libX11`.
 - **Don't use `pkgs.xorg.*`**: The xorg attribute set is deprecated in nixpkgs-unstable. Reference X11 libs directly (e.g., `pkgs.libx11`, `pkgs.libxrandr`).
+- **Path inputs missing**: `ai-jail` / `organice` must exist at the absolute paths in `flake.nix`, or override/remove the `personal` profile before evaluating.

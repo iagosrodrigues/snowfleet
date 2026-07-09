@@ -5,6 +5,11 @@ NixOS configuration for my personal workstation, built with
 [import-tree](https://github.com/vic/import-tree) for automatic module
 discovery.
 
+> **This is a personal flake.** Patterns, layout, and module style are the
+> useful reference for third parties. A clean clone will not evaluate
+> universally: absolute `path:` inputs (`ai-jail`, `organice`) expect sibling
+> checkouts on this machine. See [Personal flake / path inputs](#personal-flake--path-inputs).
+
 ## Highlights
 
 - **Impermanence** -- tmpfs root (`/`) with selective persistence on encrypted
@@ -22,52 +27,60 @@ discovery.
 ## Architecture
 
 ```
-flake.nix                         # Minimal entry point
+flake.nix                         # Minimal entry point (inputs + import-tree)
 modules/
 ├── flake/                        # Flake infrastructure (nixpkgs, devshell, home-manager base)
-├── hosts/                        # Host definitions (nixosConfigurations)
+├── hosts/
 │   └── hellplace/                # Main workstation
-│       ├── default.nix           # Composes profiles + host-specific stack
-│       ├── profiles.nix          # Named module profiles (core, desktop-kde, …)
+│       ├── default.nix           # nixosConfigurations.hellplace (profiles + host stack)
+│       ├── profiles.nix          # Named module profiles (core, desktop-kde, gaming, …)
 │       └── secrets.nix           # Host age secrets
-├── hardware/                     # Machine-specific hardware configs
-├── users/                        # User definitions
-├── system/                       # NixOS system modules
-│   ├── agenix.nix                # Secret management (agenix + agenix-rekey)
-│   ├── audio.nix                 # PipeWire (ALSA, PulseAudio, JACK)
-│   ├── fonts.nix                 # System fonts
-│   ├── io-schedulers.nix         # I/O scheduler tuning per device type
-│   ├── lact.nix                  # AMD GPU control daemon
-│   ├── networking.nix            # NetworkManager, locale, timezone
-│   ├── nix-settings.nix          # Nix settings, caches, GC
-│   ├── printing.nix              # CUPS
-│   ├── tailscale.nix             # Tailscale VPN
-│   └── virtualisation.nix        # Docker, libvirtd, virt-manager
-├── desktop/                      # Desktop environments (active on host)
-│   └── kde.nix                   # KDE Plasma 6 + plasma-manager
-├── gaming/                       # Gaming
-│   ├── gamemode.nix              # Feral GameMode + kernel tuning
-│   ├── steam.nix                 # Steam, Proton-GE, MangoHud
-│   └── vr.nix                    # WiVRn wireless VR
-├── editors/                      # Editors / AI IDEs (zed, vscode, intellij, cursor, amp, opencode)
-├── browsers/                     # Browsers (brave, helium)
-├── ai/                           # AI/ML services & tools (ollama, comfyui, lmstudio, ai-tools, ai-jail)
-├── vcs/                          # Version control (git, jujutsu, personal/work git)
+├── hardware/                     # Machine-specific hardware (hellplace → hellplace-hardware)
+├── users/                        # User definitions + user-persistence
+├── system/                       # NixOS system modules (audio, fonts, networking, agenix, …)
+├── desktop/                      # Active DE(s) on the host (kde)
+├── gaming/                       # steam, gamemode, vr
+├── editors/                      # zed, vscode, intellij, code-cursor, amp, opencode
+├── browsers/                     # brave, helium-browser
+├── ai/                           # ollama, comfyui, lmstudio, ai-tools, ai-jail
+├── vcs/                          # git, jujutsu, personal-git, work-git
 ├── apps/                         # Remaining GUI apps (discord, telegram, godot, obs, …)
-└── cli/                          # CLI tools + terminal (ghostty, shell, tmux, …)
-    ├── dev-tools.nix             # direnv + mise
-    ├── ghostty.nix               # Ghostty terminal
-    ├── shell.nix                 # Fish + Starship + zoxide
-    ├── ssh.nix                   # SSH via 1Password agent
-    ├── tmux.nix                  # tmux
-    └── zellij.nix                # Zellij
-archive/                          # Unused/experimental modules outside import-tree
+└── cli/                          # CLI + terminal (ghostty, shell, tmux, essentials, …)
+pkgs/                             # Custom packages (callPackage); overlaid via flake/nixpkgs-config
+archive/                          # Outside import-tree: experimental / unused modules & pkgs
 ├── desktop/                      # niri, gnome, ashell
 ├── apps/                         # nixvim
 └── pkgs/                         # zed-editor (custom FHS wrapper)
-secrets/                          # Encrypted secrets (agenix .age files)
-disko/                            # Declarative disk partitioning
+secrets/                          # agenix source secrets + rekeyed/<host>/
+disko/                            # Declarative disk partitioning (hellplace.nix)
 ```
+
+### Composition flow
+
+```mermaid
+flowchart TD
+  flake[flake.nix import-tree modules] --> reg[flake.modules.nixos / homeManager]
+  reg --> profiles[hosts/hellplace/profiles.nix]
+  profiles --> host[nixosConfigurations.hellplace]
+  host --> disko[disko/hellplace.nix]
+  host --> secrets[hosts/hellplace/secrets.nix]
+  host --> hw[hardware/hellplace-hardware]
+```
+
+### Where does X go?
+
+| What | Where |
+|------|--------|
+| Preferences / config for an app | Module under `modules/<domain>/` |
+| Binary-only package (no real config) | `cli/dev-tools` or a thin `apps/` module — **never** both plus the user module |
+| Custom package derivation | `pkgs/<name>.nix` + overlay in `flake/nixpkgs-config.nix` |
+| Host composition | `modules/hosts/<name>/` (profiles + host-only stack) |
+| Experimental / not used on the default host | `archive/` (outside import-tree) **or** a profile the host does not import |
+| Encrypted secrets | `secrets/*.age` + rekey under `secrets/rekeyed/<host>/` |
+| Disk layout | `disko/<host>.nix` (imported from the host) |
+
+Domains today: `system/`, `desktop/`, `gaming/`, `cli/`, `editors/`, `browsers/`,
+`ai/`, `vcs/`, `apps/`, `users/`, `hardware/`, `hosts/`, `flake/`.
 
 ## How it works
 
@@ -88,7 +101,11 @@ Hellplace does not list every module inline. Named profiles live in
 + Home-Manager lists per bundle). The host concatenates those lists and adds
 host-only pieces (hardware, secrets, disko, impermanence, hostname).
 
-Profiles today: `core`, `desktop-kde`, `gaming`, `ai`, `apps-daily`.
+Profiles today: `core`, `desktop-kde`, `gaming`, `ai`, `apps-daily`, `personal`.
+
+- **`personal`** — non-portable modules that depend on local path flake inputs
+  (`ai-jail`, `organice`). Still enabled on hellplace; split so portability is
+  obvious.
 
 ```nix
 # modules/hosts/hellplace/default.nix (simplified)
@@ -101,7 +118,8 @@ let
     ++ profiles.desktop-kde.nixos
     ++ profiles.gaming.nixos
     ++ profiles.ai.nixos
-    ++ profiles.apps-daily.nixos;
+    ++ profiles.apps-daily.nixos
+    ++ profiles.personal.nixos;
 in {
   flake.nixosConfigurations.hellplace = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
@@ -143,6 +161,31 @@ _: {
   flake.modules.homeManager.kde = { lib, ... }: { ... };
 }
 ```
+
+## Personal flake / path inputs
+
+This repository is maintained as a **personal** NixOS flake. Absolute local
+path inputs are intentional:
+
+| Input | Expected checkout | Consumed by |
+|-------|-------------------|-------------|
+| `ai-jail` | `/home/iago/Projects/Personal/ai-jail` | `modules/ai/ai-jail.nix` → profile `personal` |
+| `organice` | `/home/iago/Projects/Personal/organice` | `modules/apps/organice.nix` → profile `personal` |
+
+To evaluate or build on another machine you must either:
+
+1. Clone those repos at the same absolute paths, or
+2. Override the inputs (`--override-input ai-jail …`, or edit `flake.nix`), or
+3. Drop `profiles.personal` from `modules/hosts/hellplace/default.nix` and
+   remove/replace the path inputs (modules stay registered; the host simply
+   stops selecting them).
+
+Public value is the **composition model** (import-tree → registered modules →
+named profiles → host), not a hydra-pure `nix build` for arbitrary clones.
+
+Archive inputs (`niri`, `ashell`, …) may still appear in `flake.nix` for
+historical lock entries or archive modules; unused archive code is outside
+import-tree under `archive/`.
 
 ## Commands
 
@@ -210,10 +253,11 @@ See `secrets/README.md` for the full workflow.
 
 ## Adding a new module
 
-1. Create a file under the appropriate directory (e.g. `modules/system/bluetooth.nix`)
+1. Create a file under the appropriate domain (see [Where does X go?](#where-does-x-go))
 2. Export to `flake.modules.nixos.<key>` and/or `flake.modules.homeManager.<key>`
+   (prefer **filename = key**, kebab-case)
 3. `git add` the file (flake evaluation only sees tracked files)
-4. Add the module key to the appropriate profile in
+4. Add the module key to a profile in
    `modules/hosts/hellplace/profiles.nix` (or to the host-only stack in
    `modules/hosts/hellplace/default.nix` for machine-specific pieces)
 5. `nix flake check && nixos-rebuild build --flake .#hellplace`

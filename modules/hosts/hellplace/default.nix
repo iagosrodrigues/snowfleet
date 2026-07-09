@@ -13,14 +13,16 @@ let
     ++ profiles.desktop-kde.nixos
     ++ profiles.gaming.nixos
     ++ profiles.ai.nixos
-    ++ profiles.apps-daily.nixos;
+    ++ profiles.apps-daily.nixos
+    ++ profiles.personal.nixos;
 
   sharedHmModules =
     profiles.core.hm
     ++ profiles.desktop-kde.hm
     ++ profiles.gaming.hm
     ++ profiles.ai.hm
-    ++ profiles.apps-daily.hm;
+    ++ profiles.apps-daily.hm
+    ++ profiles.personal.hm;
 in
 {
   flake.nixosConfigurations.hellplace = inputs.nixpkgs.lib.nixosSystem {
