@@ -74,8 +74,12 @@ modules/
 ├── system/                       # NixOS system modules (audio, fonts, networking, etc.)
 ├── desktop/                      # Desktop environments (kde on host; experimental DEs in archive/)
 ├── gaming/                       # Gaming modules (steam, gamemode, vr)
-├── apps/                         # Application modules (browsers, ghostty, git, etc.)
-└── cli/                          # CLI tool modules (shell, tmux, dev-tools)
+├── editors/                      # Editors / AI IDEs (zed, vscode, intellij, cursor, amp, opencode)
+├── browsers/                     # Browsers (brave, helium)
+├── ai/                           # AI/ML services & tools (ollama, comfyui, lmstudio, …)
+├── vcs/                          # Version control (git, jujutsu, personal/work git)
+├── apps/                         # Remaining GUI apps (discord, telegram, godot, obs, …)
+└── cli/                          # CLI tools + terminal (ghostty, shell, tmux, dev-tools)
 archive/                          # Unused modules/pkgs outside import-tree (see archive/README.md)
 secrets/                          # agenix source secrets + rekeyed host outputs
 disko/                            # Declarative disk partitioning configs

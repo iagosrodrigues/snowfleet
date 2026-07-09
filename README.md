@@ -49,9 +49,14 @@ modules/
 │   ├── gamemode.nix              # Feral GameMode + kernel tuning
 │   ├── steam.nix                 # Steam, Proton-GE, MangoHud
 │   └── vr.nix                    # WiVRn wireless VR
-├── apps/                         # Application modules (browsers, editors, AI tools, git, …)
-└── cli/                          # CLI tools
+├── editors/                      # Editors / AI IDEs (zed, vscode, intellij, cursor, amp, opencode)
+├── browsers/                     # Browsers (brave, helium)
+├── ai/                           # AI/ML services & tools (ollama, comfyui, lmstudio, ai-tools, ai-jail)
+├── vcs/                          # Version control (git, jujutsu, personal/work git)
+├── apps/                         # Remaining GUI apps (discord, telegram, godot, obs, …)
+└── cli/                          # CLI tools + terminal (ghostty, shell, tmux, …)
     ├── dev-tools.nix             # direnv + mise
+    ├── ghostty.nix               # Ghostty terminal
     ├── shell.nix                 # Fish + Starship + zoxide
     ├── ssh.nix                   # SSH via 1Password agent
     ├── tmux.nix                  # tmux

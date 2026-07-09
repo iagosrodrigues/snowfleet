@@ -37,7 +37,7 @@ selects modules that live under `modules/` and are listed in
 | `desktop/gnome.nix` | GNOME DE fallback; not selected on hellplace. |
 | `desktop/ashell.nix` | Ashell status bar (niri companion); not selected on hellplace. |
 | `apps/nixvim.nix` | nixvim HM config; not listed on hellplace. |
-| `pkgs/zed-editor.nix` | Custom FHS-wrapped Zed package; overlay line was already commented out (`modules/apps/zed.nix` uses stock `programs.zed-editor`). |
+| `pkgs/zed-editor.nix` | Custom FHS-wrapped Zed package; overlay line was already commented out (`modules/editors/zed.nix` uses stock `programs.zed-editor`). |
 
 ## Not archived (intentionally)
 
