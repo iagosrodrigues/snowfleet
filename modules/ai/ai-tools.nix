@@ -2,13 +2,13 @@ _: {
   flake.modules.homeManager.ai-tools =
     { pkgs, ... }:
     {
-      # Prefer llm-agents packages (main e9ba5d9); keep gemini-cli from nixpkgs.
+      # Prefer llm-agents packages (main e9ba5d9).
       home.packages = with pkgs; [
-        gemini-cli
         llm-agents.claude-desktop
         llm-agents.claude-code
         llm-agents.codex
         llm-agents.crush
+        llm-agents.gemini-cli
         llm-agents.grok
         llm-agents.pi
       ];
