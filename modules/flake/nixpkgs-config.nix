@@ -15,7 +15,11 @@
       overlays = [
         inputs.nur.overlays.default
         inputs.niri.overlays.niri
-        inputs.llm-agents.overlays.default
+        # llm-agents.nix dropped overlays.default upstream (b195286, 2026-XX);
+        # recreate it here so `pkgs.llm-agents.*` keeps working.
+        (final: _prev: {
+          llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system} or { };
+        })
         (final: prev: {
           code-cursor = final.callPackage ../../pkgs/code-cursor.nix {
             inherit (prev) code-cursor fish;
