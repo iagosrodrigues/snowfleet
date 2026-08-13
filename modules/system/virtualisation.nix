@@ -15,6 +15,10 @@ _: {
         docker = {
           enable = true;
           enableOnBoot = false;
+          extraPackages = [ pkgs.kata-runtime ];
+          daemon.settings.runtimes.kata = {
+            runtimeType = "io.containerd.kata.v2";
+          };
         };
       };
 
@@ -27,6 +31,7 @@ _: {
 
       environment.systemPackages = with pkgs; [
         virt-manager
+        kata-runtime
       ];
 
       environment.persistence."/persist".directories = [
