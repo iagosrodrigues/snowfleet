@@ -107,6 +107,7 @@ in
         onepassword
         qbittorrent
         rclone
+        proton-drive-cli
         obs-studio
         davinci-resolve
         mongodb-compass
