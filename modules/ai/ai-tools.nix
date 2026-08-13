@@ -10,17 +10,22 @@ _: {
         llm-agents.crush
         llm-agents.gemini-cli
         llm-agents.grok
+        llm-agents.opencode
         llm-agents.pi
       ];
 
       home.persistence."/persist".directories = [
         ".cache/huggingface"
         ".claude"
+        ".config/opencode"
+        ".cache/opencode"
         ".codex"
         ".config/crush"
         ".crush"
         ".gemini"
         ".local/share/crush"
+        ".local/share/opencode" # opencode (auth.json, sessions db)
+        ".local/state/opencode"
       ];
     };
 }

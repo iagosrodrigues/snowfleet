@@ -96,7 +96,6 @@ in
         zed
         code-cursor
         intellij
-        opencode
         amp
         # browsers
         brave

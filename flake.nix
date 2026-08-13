@@ -44,6 +44,10 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opencode = {
+      url = "github:anomalyco/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Personal path inputs (not portable). Require sibling checkouts at the
     # absolute paths below. Consumed only by modules in the hellplace
     # `personal` profile (ai-jail, organice). See README "Personal flake".

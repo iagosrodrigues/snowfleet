@@ -20,6 +20,7 @@
       overlays = [
         inputs.nur.overlays.default
         inputs.niri.overlays.niri
+        inputs.opencode.overlays.default
         # llm-agents.nix dropped overlays.default upstream (b195286, 2026-XX);
         # recreate it here so `pkgs.llm-agents.*` keeps working.
         (final: _prev: {
