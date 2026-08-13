@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Checks pkgs/*.nix against upstream and, with --apply, bumps version/rev and
-# refetches the source hash in place. Skips claude-desktop and crush (checked
-# manually).
+# refetches the source hash in place. Skips crush (checked manually).
 set -euo pipefail
 
 root_dir="$(git rev-parse --show-toplevel)"
@@ -14,7 +13,7 @@ usage() {
   cat <<'EOF'
 usage: update-pkgs [--apply] [package...]
 
-Packages: code-cursor zed-editor
+Packages: claude-desktop code-cursor
 With no package names, checks all of the above.
 
   --apply   Write the new version/rev and refetch the source hash for any
@@ -50,11 +49,6 @@ gh_api() {
   curl -sf "${auth[@]}" -H "Accept: application/vnd.github+json" "$url"
 }
 
-prefetch_github_hash() {
-  # owner repo rev -> sha256-... SRI hash, matching fetchFromGitHub's hash
-  nix run nixpkgs#nix-prefetch-github -- "$1" "$2" --rev "$3" 2>/dev/null | jq -r .hash
-}
-
 prefetch_url_hash() {
   nix store prefetch-file --json --hash-type sha256 "$1" 2>/dev/null | jq -r .hash
 }
@@ -69,6 +63,41 @@ print_header() {
   $header_printed && return
   report PACKAGE CURRENT LATEST STATUS
   header_printed=true
+}
+
+# ---- claude-desktop --------------------------------------------------------
+
+check_claude_desktop() {
+  wanted claude-desktop || return 0
+  local file="$pkgs_dir/claude-desktop.nix"
+  local cur_version packages latest_version latest_sha256
+
+  cur_version=$(grep -m1 '^\s*version = ' "$file" | sed -E 's/.*"(.*)".*/\1/')
+
+  # The apt Packages index carries the SHA256 of every .deb, so the SRI hash
+  # can be derived without downloading the ~140MB archive.
+  packages=$(curl -sfL "https://downloads.claude.ai/claude-desktop/apt/stable/dists/stable/main/binary-amd64/Packages")
+  latest_version=$(grep -E '^Version: ' <<<"$packages" | awk '{print $2}' | sort -V | tail -1)
+
+  print_header
+  if [[ "$cur_version" == "$latest_version" ]]; then
+    report claude-desktop "$cur_version" "$latest_version" "up to date"
+    return 0
+  fi
+  report claude-desktop "$cur_version" "$latest_version" "UPDATE AVAILABLE"
+
+  $apply || return 0
+  latest_sha256=$(awk -v ver="$latest_version" '
+    /^Version: / { v = $2 }
+    /^SHA256: / { if (v == ver) print $2 }
+  ' <<<"$packages" | head -1)
+  local hash
+  hash=$(nix hash convert --hash-algo sha256 --to sri "$latest_sha256")
+  sed -i \
+    -e "s/version = \"${cur_version}\"/version = \"${latest_version}\"/" \
+    -e "s#hash = \"sha256-[^\"]*\"#hash = \"${hash}\"#" \
+    "$file"
+  echo "  applied: claude-desktop -> ${latest_version}"
 }
 
 # ---- code-cursor -----------------------------------------------------------
@@ -104,44 +133,8 @@ check_code_cursor() {
   echo "  applied: code-cursor -> ${latest_version} (${latest_commit})"
 }
 
-# ---- zed-editor ---------------------------------------------------------------
-
-check_zed_editor() {
-  wanted zed-editor || return 0
-  local file="$pkgs_dir/zed-editor.nix"
-  local cur_version latest_tag latest_version
-
-  cur_version=$(grep -m1 '^\s*version = ' "$file" | sed -E 's/.*"(.*)".*/\1/')
-  latest_tag=$(
-    gh_api "https://api.github.com/repos/zed-industries/zed/releases?per_page=20" |
-      jq -r '.[] | select(.prerelease == false and .draft == false) | .tag_name' |
-      grep -vE '(0\.999999\.0|0\.9999-temporary)$' |
-      head -1
-  )
-  latest_version="${latest_tag#v}"
-
-  print_header
-  if [[ "$cur_version" == "$latest_version" ]]; then
-    report zed-editor "$cur_version" "$latest_version" "up to date"
-    return 0
-  fi
-  report zed-editor "$cur_version" "$latest_version" "UPDATE AVAILABLE"
-
-  $apply || return 0
-  local hash
-  hash=$(prefetch_github_hash zed-industries zed "$latest_tag")
-  sed -i \
-    -e "s/version = \"${cur_version}\"/version = \"${latest_version}\"/" \
-    -e "s#hash = \"sha256-[^\"]*\"#hash = \"${hash}\"#" \
-    "$file"
-  echo "  applied: zed-editor -> ${latest_version}"
-  echo "  NOTE: cargoHash is now stale. Set it to lib.fakeHash, run"
-  echo "        'nix build .#nixosConfigurations.<host>...' (or any build that"
-  echo "        pulls zed-editor), and copy the 'got:' hash from the error."
-}
-
+check_claude_desktop
 check_code_cursor
-check_zed_editor
 
 echo
-echo "skipped: claude-desktop, crush (checked manually)"
+echo "skipped: crush (checked manually)"

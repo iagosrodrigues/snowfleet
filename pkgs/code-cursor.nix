@@ -7,13 +7,13 @@
 }:
 
 let
-  version = "3.10.20";
-  commit = "23b9fb205fe595ea2be29da7214e19762d037fc3";
+  version = "3.13.21";
+  commit = "55434bd8062ece6fee083b82beed2aee42d253f3";
 
   sources = {
     x86_64-linux = {
       url = "https://downloads.cursor.com/production/${commit}/linux/x64/Cursor-${version}-x86_64.AppImage";
-      hash = "sha256-mbOem91id+H6Z8VhV8bP+HggdWVaZ5yyWY2h+Nts9vs=";
+      hash = "sha256-ZF0cCKwgrziu9aF5oIvpmM1OD8G3jwcT6o0Le3wv2rI=";
     };
   };
 

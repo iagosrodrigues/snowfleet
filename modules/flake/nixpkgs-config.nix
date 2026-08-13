@@ -37,7 +37,6 @@
           organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
             organice-proton-sidecar-bin = inputs.organice-proton-sidecar-bin;
           };
-          # Dead custom package lives in archive/pkgs/zed-editor.nix (stock programs.zed-editor is used).
         })
       ];
     };
