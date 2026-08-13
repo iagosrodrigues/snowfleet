@@ -26,6 +26,7 @@
           };
           claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
+          macos-tahoe-cursor = final.callPackage ../../pkgs/macos-tahoe-cursor.nix { };
           # Dead custom package lives in archive/pkgs/zed-editor.nix (stock programs.zed-editor is used).
         })
       ];

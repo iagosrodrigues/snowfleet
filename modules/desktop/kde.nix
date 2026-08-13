@@ -29,8 +29,12 @@
 
       home = {
         packages = [
-          pkgs.apple-cursor
+          pkgs.macos-tahoe-cursor
+          # Fallback for icons candy-icons lacks
           pkgs.papirus-icon-theme
+          pkgs.candy-icons
+          # Application style (Qt style supporting QtQuick and QtWidgets)
+          pkgs.kdePackages.union
         ];
 
         sessionVariables = {
@@ -40,8 +44,9 @@
           QT_QPA_PLATFORM = "wayland";
           GDK_BACKEND = "wayland";
           # Cursor (matches programs.plasma.workspace.cursor below)
-          XCURSOR_THEME = "macOS";
-          XCURSOR_SIZE = "54";
+          XCURSOR_THEME = "MacOS-Tahoe-Cursor";
+          # Theme ships nominal sizes 32/48/64/96; 64 renders without rescaling.
+          XCURSOR_SIZE = "64";
           # Input method
           GTK_IM_MODULE = "ibus";
           QT_IM_MODULE = "ibus";
@@ -90,10 +95,11 @@
         workspace = {
           lookAndFeel = "org.kde.breezedark.desktop";
           colorScheme = "BreezeDark";
-          iconTheme = "Papirus-Dark";
+          widgetStyle = "union";
+          iconTheme = "candy-icons";
           cursor = {
-            theme = "macOS";
-            size = 54;
+            theme = "MacOS-Tahoe-Cursor";
+            size = 64;
           };
         };
 
