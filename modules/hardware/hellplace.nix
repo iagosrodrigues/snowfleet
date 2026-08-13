@@ -67,8 +67,25 @@ _: {
 
       i18n.inputMethod = {
         enable = true;
-        type = "ibus";
-        ibus.engines = with pkgs.ibus-engines; [ anthy ];
+        type = "fcitx5";
+        fcitx5 = {
+          addons = [ pkgs.fcitx5-anthy ];
+          # Native Wayland IM protocol via KWin; drops GTK/QT_IM_MODULE.
+          # XMODIFIERS stays, so XIM clients (Steam's CEF) keep composing accents.
+          waylandFrontend = true;
+          # keyboard-us-intl must be the first/default IM so dead-key accents
+          # keep composing in XIM clients (Steam's CEF); anthy is for Japanese.
+          settings.inputMethod = {
+            "Groups/0" = {
+              Name = "Default";
+              "Default Layout" = "us-intl";
+              DefaultIM = "keyboard-us-intl";
+            };
+            "Groups/0/Items/0".Name = "keyboard-us-intl";
+            "Groups/0/Items/1".Name = "anthy";
+            GroupOrder."0" = "Default";
+          };
+        };
       };
 
       swapDevices = [

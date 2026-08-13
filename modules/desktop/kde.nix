@@ -47,9 +47,6 @@
           XCURSOR_THEME = "MacOS-Tahoe-Cursor";
           # Theme ships nominal sizes 32/48/64/96; 64 renders without rescaling.
           XCURSOR_SIZE = "64";
-          # Input method
-          GTK_IM_MODULE = "ibus";
-          QT_IM_MODULE = "ibus";
         };
 
         # KDE Plasma state that must survive reboots.

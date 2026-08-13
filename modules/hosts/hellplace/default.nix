@@ -38,6 +38,10 @@ in
         {
           networking.hostName = "hellplace";
           fileSystems."/persist".neededForBoot = true;
+          i18n.supportedLocales = [
+            "en_US.UTF-8/UTF-8"
+            "ja_JP.UTF-8/UTF-8"
+          ];
         }
       ]
       ++ [ { home-manager.sharedModules = sharedHmModules; } ];
