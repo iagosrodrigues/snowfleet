@@ -28,6 +28,9 @@
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
           macos-tahoe-cursor = final.callPackage ../../pkgs/macos-tahoe-cursor.nix { };
           proton-drive-cli = final.callPackage ../../pkgs/proton-drive-cli.nix { };
+          organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
+            organice-proton-sidecar-bin = inputs.organice-proton-sidecar-bin;
+          };
           # Dead custom package lives in archive/pkgs/zed-editor.nix (stock programs.zed-editor is used).
         })
       ];

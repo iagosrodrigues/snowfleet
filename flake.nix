@@ -55,6 +55,15 @@
       url = "path:/home/iago/Projects/Personal/organice";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Locally built Organice Proton sidecar daemon (`bun run build` output of
+    # organice's tools/proton-sidecar/; see organice
+    # docs/superpowers/specs/2026-07-21-proton-sidecar-transport-design.md).
+    # After rebuilding the binary, re-pin with:
+    #   nix flake update organice-proton-sidecar-bin
+    organice-proton-sidecar-bin = {
+      url = "path:/home/iago/Projects/Personal/organice/tools/proton-sidecar/release";
+      flake = false;
+    };
   };
 
   outputs =
