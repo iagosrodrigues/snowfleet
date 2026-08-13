@@ -4,7 +4,7 @@ _: {
     {
       # Prefer llm-agents packages (main e9ba5d9).
       home.packages = with pkgs; [
-        llm-agents.claude-desktop
+        claude-desktop
         llm-agents.claude-code
         llm-agents.codex
         llm-agents.crush
@@ -17,6 +17,7 @@ _: {
       home.persistence."/persist".directories = [
         ".cache/huggingface"
         ".claude"
+        ".config/Claude" # claude-desktop (login, sessions, MCP config)
         ".config/opencode"
         ".cache/opencode"
         ".codex"
@@ -26,6 +27,7 @@ _: {
         ".local/share/crush"
         ".local/share/opencode" # opencode (auth.json, sessions db)
         ".local/state/opencode"
+        ".pi"
       ];
     };
 }
