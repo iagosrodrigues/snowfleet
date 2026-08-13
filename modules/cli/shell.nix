@@ -55,6 +55,10 @@ _: {
               # Drop into fish when a script or habit still expects it
               fish = "fish";
             };
+          extraEnv = ''
+            # PATH is already a list here (nushell's default ENV_CONVERSIONS)
+            $env.PATH = ($env.PATH | prepend $"($env.HOME)/.cargo/bin" | uniq)
+          '';
           settings = {
             show_banner = false;
             history = {
