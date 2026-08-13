@@ -14,7 +14,7 @@ usage() {
   cat <<'EOF'
 usage: update-pkgs [--apply] [package...]
 
-Packages: code-cursor sweet-cursors zed-editor
+Packages: code-cursor zed-editor
 With no package names, checks all of the above.
 
   --apply   Write the new version/rev and refetch the source hash for any
@@ -104,37 +104,6 @@ check_code_cursor() {
   echo "  applied: code-cursor -> ${latest_version} (${latest_commit})"
 }
 
-# ---- sweet-cursors ------------------------------------------------------------
-
-check_sweet_cursors() {
-  wanted sweet-cursors || return 0
-  local file="$pkgs_dir/sweet-cursors.nix"
-  local cur_rev latest_rev latest_date latest_version commit_json
-
-  cur_rev=$(grep -m1 '^\s*rev = ' "$file" | sed -E 's/.*"(.*)".*/\1/')
-  commit_json=$(gh_api "https://api.github.com/repos/EliverLara/Sweet/commits/nova")
-  latest_rev=$(jq -r .sha <<<"$commit_json")
-  latest_date=$(jq -r '.commit.committer.date' <<<"$commit_json" | cut -dT -f1)
-  latest_version="unstable-${latest_date}"
-
-  print_header
-  if [[ "$cur_rev" == "$latest_rev" ]]; then
-    report sweet-cursors "${cur_rev:0:12}" "${latest_rev:0:12}" "up to date"
-    return 0
-  fi
-  report sweet-cursors "${cur_rev:0:12}" "${latest_rev:0:12}" "UPDATE AVAILABLE"
-
-  $apply || return 0
-  local hash
-  hash=$(prefetch_github_hash EliverLara Sweet "$latest_rev")
-  sed -i \
-    -e "s/version = \"unstable-[0-9-]*\"/version = \"${latest_version}\"/" \
-    -e "s/rev = \"${cur_rev}\"/rev = \"${latest_rev}\"/" \
-    -e "s#hash = \"sha256-[^\"]*\"#hash = \"${hash}\"#" \
-    "$file"
-  echo "  applied: sweet-cursors -> ${latest_version} (${latest_rev:0:12})"
-}
-
 # ---- zed-editor ---------------------------------------------------------------
 
 check_zed_editor() {
@@ -172,7 +141,6 @@ check_zed_editor() {
 }
 
 check_code_cursor
-check_sweet_cursors
 check_zed_editor
 
 echo
