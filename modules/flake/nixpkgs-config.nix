@@ -12,6 +12,11 @@
   flake.modules.nixos.nixpkgs-config = {
     nixpkgs = {
       config.allowUnfree = true;
+      # vesktop bundles an older electron flagged insecure upstream; no fix
+      # available yet from the vesktop/nixpkgs side.
+      config.permittedInsecurePackages = [
+        "electron-40.10.5"
+      ];
       overlays = [
         inputs.nur.overlays.default
         inputs.niri.overlays.niri
