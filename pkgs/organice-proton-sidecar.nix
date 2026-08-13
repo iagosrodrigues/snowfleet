@@ -49,5 +49,10 @@ runCommand "organice-proton-sidecar"
     install -Dm755 ${organice-proton-sidecar-bin}/organice-proton-sidecar \
       $out/libexec/organice-proton-sidecar
     makeWrapper $out/libexec/organice-proton-sidecar $out/bin/organice-proton-sidecar \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret glib ]}
+      --prefix LD_LIBRARY_PATH : ${
+        lib.makeLibraryPath [
+          libsecret
+          glib
+        ]
+      }
   ''
