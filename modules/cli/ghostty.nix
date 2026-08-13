@@ -8,8 +8,11 @@ _: {
         settings = {
           background-opacity = 1;
           command = lib.getExe pkgs.nushell;
-          font-family = "JetbrainsMono Nerd Font";
-          font-size = 16;
+          font-family = [
+            "Google Sans Code"
+            "Symbols Nerd Font"
+          ];
+          font-size = 18;
           theme = "Gruvbox Material";
         };
       };
