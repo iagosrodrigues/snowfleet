@@ -18,7 +18,7 @@ _: {
           efi.canTouchEfiVariables = true;
         };
 
-        kernelPackages = pkgs.linuxPackages_latest;
+        kernelPackages = pkgs.linuxPackages_cachyos;
 
         extraModulePackages = [ config.boot.kernelPackages.new-lg4ff ];
 
@@ -111,6 +111,14 @@ _: {
         open-webui = {
           package = pkgs.open-webui;
           enable = true;
+        };
+
+        # sched-ext (kernel ≥6.12): BPF scheduler swap-able at runtime.
+        # bpfland prioritises interactive tasks (gaming/UI) under CPU load —
+        # better fit than the default rustland for "game while compiling".
+        scx = {
+          enable = true;
+          scheduler = "scx_bpfland";
         };
 
         # btrbk.instances.btrbk = {

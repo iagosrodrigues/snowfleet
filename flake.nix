@@ -26,6 +26,10 @@
 
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
+    # Chaotic-Nyx: binary cache + bleeding-edge packages (linux_cachyos, mesa_git, ...).
+    # IMPORTANT: no `inputs.nixpkgs.follows` — pinning to nyx's own nixpkgs is
+    # required for the binary cache to match (see nyx "cache troubleshooting").
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";

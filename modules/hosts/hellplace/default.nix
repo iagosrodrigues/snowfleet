@@ -34,6 +34,7 @@ in
         nixos.hellplace-secrets
         inputs.disko.nixosModules.disko
         inputs.impermanence.nixosModules.impermanence
+        inputs.chaotic.nixosModules.default
         (import ../../../disko/hellplace.nix)
         {
           networking.hostName = "hellplace";
