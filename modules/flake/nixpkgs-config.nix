@@ -34,6 +34,7 @@
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
           macos-tahoe-cursor = final.callPackage ../../pkgs/macos-tahoe-cursor.nix { };
           proton-drive-cli = final.callPackage ../../pkgs/proton-drive-cli.nix { };
+          zcode = final.callPackage ../../pkgs/zcode.nix { };
           organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
             organice-proton-sidecar-bin = inputs.organice-proton-sidecar-bin;
           };
