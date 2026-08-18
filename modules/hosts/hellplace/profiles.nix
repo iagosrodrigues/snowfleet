@@ -19,6 +19,7 @@ in
         nix-settings
         nixpkgs-config
         # hardware / platform
+        coolercontrol
         io-schedulers
         lact
         yubikey
@@ -39,6 +40,7 @@ in
         zellij
         tailscale
         virtualisation
+        coolercontrol
       ];
     };
 
