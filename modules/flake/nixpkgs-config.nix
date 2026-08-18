@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   imports = [
     inputs.flake-parts.flakeModules.modules
@@ -38,6 +38,20 @@
           organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
             organice-proton-sidecar-bin = inputs.organice-proton-sidecar-bin;
           };
+        })
+        # GE-Proton pinned explicitly (nixpkgs lags and predates the
+        # arch-suffixed asset names). Drop this override once nixpkgs ships
+        # GE-Proton >= 11-5.
+        (final: prev: {
+          proton-ge-bin =
+            (prev.proton-ge-bin.override { steamDisplayName = "GE-Proton11-5"; }).overrideAttrs
+              (old: {
+                version = "GE-Proton11-5";
+                src = final.fetchzip {
+                  url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-x86_64.tar.gz";
+                  hash = "sha256-Sbyi5zXMhPIKSotvL5LEZ2dbDoLpXRcCyuY9TsnBnus=";
+                };
+              });
         })
       ];
     };
