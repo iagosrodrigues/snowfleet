@@ -76,10 +76,11 @@ in
       hm = with hm; [
         # claude-desktop omitted: main installs via llm-agents (e9ba5d9)
         ai-tools
-        zcode
-        ollama
-        lmstudio
+        chatgpt-desktop
         comfyui
+        lmstudio
+        ollama
+        zcode
       ];
     };
 
