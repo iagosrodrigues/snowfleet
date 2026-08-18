@@ -1,4 +1,4 @@
-{ inputs, lib, ... }:
+{ inputs, ... }:
 {
   imports = [
     inputs.flake-parts.flakeModules.modules
@@ -45,7 +45,7 @@
         (final: prev: {
           proton-ge-bin =
             (prev.proton-ge-bin.override { steamDisplayName = "GE-Proton11-5"; }).overrideAttrs
-              (old: {
+              (_: {
                 version = "GE-Proton11-5";
                 src = final.fetchzip {
                   url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-x86_64.tar.gz";
