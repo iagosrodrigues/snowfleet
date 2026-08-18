@@ -36,7 +36,7 @@
           proton-drive-cli = final.callPackage ../../pkgs/proton-drive-cli.nix { };
           zcode = final.callPackage ../../pkgs/zcode.nix { };
           organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
-            organice-proton-sidecar-bin = inputs.organice-proton-sidecar-bin;
+            inherit (inputs) organice-proton-sidecar-bin;
           };
         })
         # GE-Proton pinned explicitly (nixpkgs lags and predates the
