@@ -187,6 +187,18 @@ Archive inputs (`niri`, `ashell`, …) may still appear in `flake.nix` for
 historical lock entries or archive modules; unused archive code is outside
 import-tree under `archive/`.
 
+### Non-redistributable assets
+
+Some packages use `requireFile`: the repo pins only the hash, and the file
+itself must be added to the Nix store once per machine before building.
+
+| Package | File | Register with |
+|---------|------|---------------|
+| `macos-goldengate-cursor` (cursor theme extracted from macOS) | `~/Downloads/Cursors/macOS-GoldenGate.tar.gz` | `nix-store --add-fixed sha256 ~/Downloads/Cursors/macOS-GoldenGate.tar.gz` |
+
+The store path stays alive as long as a system generation references it; after
+a reinstall, register it again.
+
 ## Commands
 
 ```bash

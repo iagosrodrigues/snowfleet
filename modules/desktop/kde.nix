@@ -29,7 +29,7 @@
 
       home = {
         packages = [
-          pkgs.macos-tahoe-cursor
+          pkgs.macos-goldengate-cursor
           # Fallback for icons candy-icons lacks
           pkgs.papirus-icon-theme
           pkgs.candy-icons
@@ -44,8 +44,8 @@
           QT_QPA_PLATFORM = "wayland";
           GDK_BACKEND = "wayland";
           # Cursor (matches programs.plasma.workspace.cursor below)
-          XCURSOR_THEME = "MacOS-Tahoe-Cursor";
-          # Theme ships nominal sizes 32/48/64/96; 64 renders without rescaling.
+          XCURSOR_THEME = "macOS-GoldenGate";
+          # Theme ships nominal sizes 24-120 (incl. 64); 64 renders without rescaling.
           XCURSOR_SIZE = "64";
         };
 
@@ -95,7 +95,7 @@
           widgetStyle = "union";
           iconTheme = "candy-icons";
           cursor = {
-            theme = "MacOS-Tahoe-Cursor";
+            theme = "macOS-GoldenGate";
             size = 64;
           };
         };

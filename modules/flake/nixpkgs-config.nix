@@ -32,7 +32,7 @@
           };
           claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
-          macos-tahoe-cursor = final.callPackage ../../pkgs/macos-tahoe-cursor.nix { };
+          macos-goldengate-cursor = final.callPackage ../../pkgs/macos-goldengate-cursor.nix { };
           proton-drive-cli = final.callPackage ../../pkgs/proton-drive-cli.nix { };
           zcode = final.callPackage ../../pkgs/zcode.nix { };
           organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
