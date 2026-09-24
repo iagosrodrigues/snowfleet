@@ -26,32 +26,30 @@
         (final: _prev: {
           llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system} or { };
         })
-        (final: prev: {
-          code-cursor = final.callPackage ../../pkgs/code-cursor.nix {
-            inherit (prev) code-cursor fish;
-          };
+        # Blackmagic re-uploaded the 21.1 archive without bumping the version,
+        # so the fixed-output hash in nixpkgs is stale until
+        # https://github.com/NixOS/nixpkgs/pull/562336 reaches nixos-unstable.
+        # Re-evaluate the upstream package.nix with the corrected studio hash.
+        # Drop this overlay once the PR lands.
+        (final: _prev: {
+          davinci-resolve-studio = final.callPackage (builtins.toFile "davinci-resolve.nix" (
+            builtins.replaceStrings
+              [ "sha256-D5RjUukwKMpULrDfMJOPsPWW9FxhQ/IUMh76u5JLytA=" ]
+              [ "sha256-P+zu8/OuFcDcIkwV3UMq0qg9U2JEGRkKDP+VLQesZjw=" ]
+              (builtins.readFile "${inputs.nixpkgs}/pkgs/by-name/da/davinci-resolve/package.nix")
+          )) { studioVariant = true; };
+        })
+        (final: _prev: {
           claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
           macos-goldengate-cursor = final.callPackage ../../pkgs/macos-goldengate-cursor.nix { };
           proton-drive-cli = final.callPackage ../../pkgs/proton-drive-cli.nix { };
           zcode = final.callPackage ../../pkgs/zcode.nix { };
-          organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
-            inherit (inputs) organice-proton-sidecar-bin;
-          };
-        })
-        # GE-Proton pinned explicitly (nixpkgs lags and predates the
-        # arch-suffixed asset names). Drop this override once nixpkgs ships
-        # GE-Proton >= 11-5.
-        (final: prev: {
-          proton-ge-bin =
-            (prev.proton-ge-bin.override { steamDisplayName = "GE-Proton11-5"; }).overrideAttrs
-              (_: {
-                version = "GE-Proton11-5";
-                src = final.fetchzip {
-                  url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-x86_64.tar.gz";
-                  hash = "sha256-Sbyi5zXMhPIKSotvL5LEZ2dbDoLpXRcCyuY9TsnBnus=";
-                };
-              });
+          # TEMPORARILY DISABLED (disk space) together with the organice inputs
+          # in flake.nix and the profile entry in hosts/hellplace/profiles.nix.
+          # organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
+          #   inherit (inputs) organice-proton-sidecar-bin;
+          # };
         })
       ];
     };

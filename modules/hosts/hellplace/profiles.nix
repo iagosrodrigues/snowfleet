@@ -48,11 +48,14 @@ in
       nixos = with nixos; [
         kde
         audio
+        bluetooth
         fonts
+        sunshine
       ];
       hm = with hm; [
         kde
         audio
+        sunshine
       ];
     };
 
@@ -76,8 +79,10 @@ in
       hm = with hm; [
         # claude-desktop omitted: main installs via llm-agents (e9ba5d9)
         ai-tools
+        claude-work
         chatgpt-desktop
         comfyui
+        delta
         lmstudio
         ollama
         zcode
@@ -96,13 +101,12 @@ in
         jujutsu
         # terminal / editors
         ghostty
-        vscode
         zed
-        code-cursor
         intellij
         amp
         # browsers
         brave
+        firefox-nightly
         helium-browser
         # apps / media
         discord
@@ -124,7 +128,9 @@ in
         ai-jail
       ];
       hm = with hm; [
-        organice
+        # TEMPORARILY DISABLED (disk space): re-enable together with the
+        # organice inputs in flake.nix + overlay in nixpkgs-config.nix.
+        # organice
       ];
     };
   };

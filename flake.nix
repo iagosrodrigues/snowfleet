@@ -15,6 +15,7 @@
     nur.url = "github:nix-community/NUR";
     niri.url = "github:sodiboo/niri-flake";
     ghostty.url = "github:ghostty-org/ghostty";
+    firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     ashell.url = "github:MalpenZibo/ashell";
     rust-overlay.url = "github:oxalica/rust-overlay";
 
@@ -55,19 +56,23 @@
       url = "path:/home/iago/Projects/Personal/ai-jail";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    organice = {
-      url = "path:/home/iago/Projects/Personal/organice";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # TEMPORARILY DISABLED (disk space): organice commented out. To re-enable,
+    # uncomment these two inputs, the organice-proton-sidecar overlay entry in
+    # modules/flake/nixpkgs-config.nix, and the organice line in the hellplace
+    # `personal` profile, then `nix flake update organice organice-proton-sidecar-bin`.
+    # organice = {
+    #   url = "path:/home/iago/Projects/Personal/organice";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     # Locally built Organice Proton sidecar daemon (`bun run build` output of
     # organice's tools/proton-sidecar/; see organice
     # docs/superpowers/specs/2026-07-21-proton-sidecar-transport-design.md).
     # After rebuilding the binary, re-pin with:
     #   nix flake update organice-proton-sidecar-bin
-    organice-proton-sidecar-bin = {
-      url = "path:/home/iago/Projects/Personal/organice/tools/proton-sidecar/release";
-      flake = false;
-    };
+    # organice-proton-sidecar-bin = {
+    #   url = "path:/home/iago/Projects/Personal/organice/tools/proton-sidecar/release";
+    #   flake = false;
+    # };
   };
 
   outputs =
