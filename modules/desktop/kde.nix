@@ -30,11 +30,6 @@
       home = {
         packages = [
           pkgs.macos-goldengate-cursor
-          # Fallback for icons candy-icons lacks
-          pkgs.papirus-icon-theme
-          pkgs.candy-icons
-          # Application style (Qt style supporting QtQuick and QtWidgets)
-          pkgs.kdePackages.union
         ];
 
         sessionVariables = {
@@ -48,6 +43,13 @@
           # Theme ships nominal sizes 24-120 (incl. 64); 64 renders without rescaling.
           XCURSOR_SIZE = "64";
         };
+
+        file.".XCompose".text = ''
+          include "%L"
+
+          <dead_acute> <c> : "ç" ccedilla
+          <dead_acute> <C> : "Ç" Ccedilla
+        '';
 
         # KDE Plasma state that must survive reboots.
         # NOTE: panel layout, taskbar launchers, screen-lock and effects are
@@ -92,8 +94,8 @@
         workspace = {
           lookAndFeel = "org.kde.breezedark.desktop";
           colorScheme = "BreezeDark";
-          widgetStyle = "union";
-          iconTheme = "candy-icons";
+          widgetStyle = "breeze";
+          iconTheme = "breeze-dark";
           cursor = {
             theme = "macOS-GoldenGate";
             size = 64;
@@ -131,6 +133,23 @@
             repeatRate = 50;
             numlockOnStartup = "on";
           };
+
+          touchpads = [
+            {
+              enable = true;
+              name = "Apple Inc. Magic Trackpad";
+              vendorId = "05ac";
+              productId = "0265";
+              naturalScroll = false;
+            }
+            {
+              enable = true;
+              name = "Apple Inc. Magic Trackpad";
+              vendorId = "004c";
+              productId = "0265";
+              naturalScroll = false;
+            }
+          ];
 
           mice = [
             {

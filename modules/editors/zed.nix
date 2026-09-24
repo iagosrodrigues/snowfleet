@@ -12,7 +12,7 @@ _: {
         ];
         userSettings = {
           vim_mode = true;
-          buffer_font_family = "Suisse Int'l";
+          buffer_font_family = "Suisse Intl Mono";
           buffer_font_size = 20;
           buffer_font_features = {
             calt = true;
