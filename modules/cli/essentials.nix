@@ -16,7 +16,7 @@ _: {
         gh
         gnupg
         jq
-        libreoffice-still
+        libreoffice-stable
         nil
         nixd
         nixfmt

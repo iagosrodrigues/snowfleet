@@ -41,10 +41,6 @@ _: {
           "kvm-amd"
           "uvcvideo"
         ];
-
-        kernelParams = [
-          "amdgpu.cwsr_enable=0"
-        ];
       };
 
       # Networking (DHCP)
@@ -58,9 +54,9 @@ _: {
         # nixpkgs.config.rocmSupport = true;
 
         # AMD ROCm GPU packages
+        # OpenCL ICD is provided by amdgpu.opencl.enable above.
         graphics.extraPackages = with pkgs; [
           amf
-          rocmPackages.clr.icd
           rocmPackages.rocm-runtime
         ];
       };
@@ -110,7 +106,7 @@ _: {
       services = {
         open-webui = {
           package = pkgs.open-webui;
-          enable = true;
+          enable = false;
         };
 
         # sched-ext (kernel ≥6.12): BPF scheduler swap-able at runtime.
