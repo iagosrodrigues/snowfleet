@@ -39,16 +39,16 @@
 }:
 let
   pname = "helium-browser";
-  version = "0.13.6.1";
+  version = "0.17.2.1";
 
   architectures = {
     x86_64-linux = {
       debArch = "amd64";
-      hash = "sha256-ms+XG5/zl4lfrdgxTuCfOyfHQCeGUav+orzI680FxDE=";
+      hash = "sha256-xb4AhHoTY/AE+B07jnDKJmsVrgKgKdLLHhG2TThTaSk=";
     };
     aarch64-linux = {
       debArch = "arm64";
-      hash = "sha256-lFNhrzWow2ChadSuQqMzFgGKEnZJMOgiGg/RCtmh1OE=";
+      hash = "sha256-GzuX/NBiRRCwKcOQBGYdnKb89CdH3/9rVU0pfKugb+g=";
     };
   };
 
