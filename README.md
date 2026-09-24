@@ -7,7 +7,7 @@ discovery.
 
 > **This is a personal flake.** Patterns, layout, and module style are the
 > useful reference for third parties. A clean clone will not evaluate
-> universally: absolute `path:` inputs (`ai-jail`, `organice`) expect sibling
+> universally: the absolute `path:` input (`ai-jail`) expects a sibling
 > checkouts on this machine. See [Personal flake / path inputs](#personal-flake--path-inputs).
 
 ## Highlights
@@ -40,8 +40,8 @@ modules/
 ├── system/                       # NixOS system modules (audio, fonts, networking, agenix, …)
 ├── desktop/                      # Active DE(s) on the host (kde)
 ├── gaming/                       # steam, gamemode, vr
-├── editors/                      # zed, vscode, intellij, code-cursor, amp, opencode
-├── browsers/                     # brave, helium-browser
+├── editors/                      # zed, vscode, intellij, amp, opencode
+├── browsers/                     # brave, firefox-nightly, helium-browser
 ├── ai/                           # ollama, comfyui, lmstudio, ai-tools, ai-jail
 ├── vcs/                          # git, jujutsu, personal-git, work-git
 ├── apps/                         # Remaining GUI apps (discord, telegram, godot, obs, …)
@@ -170,11 +170,14 @@ path inputs are intentional:
 | Input | Expected checkout | Consumed by |
 |-------|-------------------|-------------|
 | `ai-jail` | `/home/iago/Projects/Personal/ai-jail` | `modules/ai/ai-jail.nix` → profile `personal` |
-| `organice` | `/home/iago/Projects/Personal/organice` | `modules/apps/organice.nix` → profile `personal` |
+
+The CI overrides `ai-jail` with `.github/fixtures/ai-jail` to validate the
+rest of the configuration from a clean checkout. Local builds use the real
+input. Organice is currently disabled in the flake and host profile.
 
 To evaluate or build on another machine you must either:
 
-1. Clone those repos at the same absolute paths, or
+1. Clone that repo at the same absolute path, or
 2. Override the inputs (`--override-input ai-jail …`, or edit `flake.nix`), or
 3. Drop `profiles.personal` from `modules/hosts/hellplace/default.nix` **and**
    remove or override the absolute `path:` inputs in `flake.nix`. Dropping the
