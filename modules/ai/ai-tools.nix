@@ -35,7 +35,8 @@ _: {
           ".local/state/opencode"
           ".config/orca" # orca (Electron userData: profiles/orca-data.json, login, logs, daemon)
           ".local/share/orca" # orca managed claude/codex account homes
-          ".orca" # orca keybindings.json, agent-hooks, worktrees, drops, templates
+          ".orca" # orca keybindings.json, agent-hooks, drops, templates
+          "orca" # orca default workspaceDir (~/orca/workspaces): the git worktrees it creates
           ".pi"
         ];
       };
