@@ -128,6 +128,7 @@ in
         ai-jail
       ];
       hm = with hm; [
+        organice-persistence
         # TEMPORARILY DISABLED (disk space): re-enable together with the
         # organice inputs in flake.nix + overlay in nixpkgs-config.nix.
         # organice

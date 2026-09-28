@@ -9,10 +9,13 @@ _: {
         # modules/apps/proton-drive-cli.nix persistence dirs + keyring).
         pkgs.organice-proton-sidecar
       ];
-
-      home.persistence."/persist".directories = [
-        ".local/share/organice"
-        ".cache/migraphx"
-      ];
     };
+
+  # Keep app data mounted even while the package module is disabled.
+  flake.modules.homeManager.organice-persistence = {
+    home.persistence."/persist".directories = [
+      ".local/share/organice"
+      ".cache/migraphx"
+    ];
+  };
 }
