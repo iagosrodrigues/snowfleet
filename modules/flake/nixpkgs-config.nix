@@ -26,6 +26,27 @@
         (final: _prev: {
           llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system} or { };
         })
+        # codex 0.159.0 is the first client the model catalog offers
+        # gpt-6.1-sol to; llm-agents still ships 0.158.0. Values from
+        # https://github.com/numtide/llm-agents.nix/pull/10062.
+        # Drop this overlay once llm-agents ships codex >= 0.159.0.
+        (_final: prev: {
+          llm-agents = prev.llm-agents // {
+            codex =
+              if prev.lib.versionAtLeast prev.llm-agents.codex.version "0.159.0" then
+                throw "llm-agents now ships codex ${prev.llm-agents.codex.version}: drop the codex 0.159.0 overlay in modules/flake/nixpkgs-config.nix"
+              else
+                prev.llm-agents.codex.override {
+                  versionData =
+                    builtins.fromJSON (builtins.readFile "${inputs.llm-agents}/packages/codex/hashes.json")
+                    // {
+                      version = "0.159.0";
+                      hash = "sha256-rtYsWjG56SagT5cWt22//vyqvD0QBKSHRdRhzHQB4CQ=";
+                      cargoHash = "sha256-3X4gmzAZG10DDcI667k9Zf+r3IvzeAAWD1NbTdQZyGY=";
+                    };
+                };
+          };
+        })
         # Blackmagic re-uploaded the 21.1 archive without bumping the version,
         # so the fixed-output hash in nixpkgs is stale until
         # https://github.com/NixOS/nixpkgs/pull/562336 reaches nixos-unstable.
