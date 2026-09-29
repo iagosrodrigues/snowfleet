@@ -58,6 +58,7 @@
         persistence."/persist".directories = [
           ".config/kde.org"
           ".config/kdedefaults"
+          ".local/share/baloo" # file-search index; rebuilt from scratch on tmpfs otherwise
           ".local/share/kscreen"
           ".local/share/plasma"
           ".local/share/kwalletd"

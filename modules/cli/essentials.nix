@@ -35,5 +35,12 @@ _: {
         wl-clipboard
         xwayland-satellite
       ];
+
+      # Package-manager download caches for cargo and nodejs above.
+      home.persistence."/persist".directories = [
+        ".cargo/git"
+        ".cargo/registry"
+        ".npm"
+      ];
     };
 }
