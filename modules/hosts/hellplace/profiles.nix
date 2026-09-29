@@ -91,6 +91,7 @@ in
 
     apps-daily = {
       nixos = with nixos; [
+        firefox-nightly
         onepassword
       ];
       hm = with hm; [
