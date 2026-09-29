@@ -11,8 +11,10 @@ _: {
           llm-agents.crush
           llm-agents.gemini-cli
           llm-agents.grok
+          llm-agents.hermes-agent
           llm-agents.opencode2
           llm-agents.orca
+          llm-agents.paperclip
           llm-agents.pi
         ];
 
@@ -30,6 +32,7 @@ _: {
           ".config/crush"
           ".crush"
           ".gemini"
+          ".hermes" # hermes-agent (HERMES_HOME: config.yaml, .env keys, state.db sessions, memories, skills, profiles)
           ".local/share/crush"
           ".local/share/opencode" # opencode (auth.json, sessions db)
           ".local/state/opencode"
@@ -37,6 +40,7 @@ _: {
           ".local/share/orca" # orca managed claude/codex account homes
           ".orca" # orca keybindings.json, agent-hooks, drops, templates
           "orca" # orca default workspaceDir (~/orca/workspaces): the git worktrees it creates
+          ".paperclip" # paperclip instances: embedded postgres, storage, backups, secrets/master.key, logs
           ".pi"
         ];
       };
