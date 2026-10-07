@@ -23,6 +23,7 @@ in
         io-schedulers
         lact
         yubikey
+        magic-keyboard
         # services
         printing
         shell
