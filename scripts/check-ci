@@ -13,5 +13,5 @@ nix run nixpkgs#nixfmt-tree -- --ci .
 echo "[3/4] nix develop -c deadnix --fail ."
 nix develop -c deadnix --fail .
 
-echo "[4/4] nix develop -c statix check ."
-nix develop -c statix check .
+echo "[4/4] nix develop -c statix check . -i .cache"
+nix develop -c statix check . -i .cache
