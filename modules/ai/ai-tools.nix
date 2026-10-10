@@ -44,5 +44,37 @@ _: {
           ".pi"
         ];
       };
+
+      # hermes-agent messaging gateway (Telegram etc.; tokens in ~/.hermes/.env).
+      # Declared here because `hermes gateway install` writes a unit that runs
+      # the bare store python, which cannot import hermes_cli.
+      systemd.user.services.hermes-gateway = {
+        Unit = {
+          Description = "Hermes Agent Gateway";
+          After = [ "network-online.target" ];
+          Wants = [ "network-online.target" ];
+          StartLimitIntervalSec = 0;
+        };
+        Service = {
+          ExecStart = "${pkgs.llm-agents.hermes-agent}/bin/hermes gateway run";
+          ExecReload = "${pkgs.coreutils}/bin/kill -USR1 $MAINPID";
+          WorkingDirectory = "%h/.hermes";
+          Environment = [
+            "HERMES_HOME=%h/.hermes"
+            "HERMES_SUPERVISED_CHILD=1"
+            # Agent tool calls need the user's packages, not systemd's bare PATH.
+            "PATH=/etc/profiles/per-user/%u/bin:/run/current-system/sw/bin"
+          ];
+          Restart = "always";
+          RestartSec = 5;
+          # 75 = gateway-requested restart, 78 = config error (don't loop).
+          RestartForceExitStatus = 75;
+          SuccessExitStatus = 75;
+          RestartPreventExitStatus = 78;
+          KillMode = "mixed";
+          TimeoutStopSec = 70;
+        };
+        Install.WantedBy = [ "default.target" ];
+      };
     };
 }
