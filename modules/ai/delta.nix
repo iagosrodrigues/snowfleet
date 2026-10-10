@@ -1,11 +1,13 @@
-# Delta is installed from its upstream archive into ~/.local/delta.app.
-_: {
-  flake.modules.homeManager.delta = {
-    home.persistence."/persist".directories = [
-      ".config/delta"
-      ".local/delta.app"
-      ".local/share/delta"
-      ".local/share/applications"
-    ];
-  };
+{ inputs, ... }:
+{
+  flake.modules.homeManager.delta =
+    { pkgs, ... }:
+    {
+      home.packages = [ inputs.delta.packages.${pkgs.stdenv.hostPlatform.system}.delta ];
+
+      home.persistence."/persist".directories = [
+        ".config/delta"
+        ".local/share/delta"
+      ];
+    };
 }

@@ -49,6 +49,11 @@
       url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Delta (delta.dev, by Zed) — official flake wrapping the Linux binaries.
+    delta = {
+      url = "github:zed-industries/delta-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Personal path inputs (not portable). Require sibling checkouts at the
     # absolute paths below. Consumed only by modules in the hellplace
     # `personal` profile (ai-jail, organice). See README "Personal flake".
