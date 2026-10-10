@@ -40,6 +40,39 @@
               ];
               pythonImportsCheck = old.pythonImportsCheck ++ [ "honcho" ];
             });
+            # Paperclip ships two embedded-postgres copies (top level and under
+            # @paperclipai/db). Upstream's postInstall patches only the first
+            # one found, then deletes every @embedded-postgres platform package,
+            # so the other copy fails with ERR_MODULE_NOT_FOUND at startup.
+            # Patch every copy to use nixpkgs PostgreSQL.
+            paperclip = prev.llm-agents.paperclip.overrideAttrs {
+              postInstall = ''
+                    find $out/lib/node_modules -path '*/embedded-postgres/dist/binary.js' | grep -q .
+                    while IFS= read -r embedded; do
+                      cat > "$embedded" <<'EOF'
+                function getBinaries() {
+                  return Promise.resolve({
+                    postgres: "${final.postgresql_18}/bin/postgres",
+                    initdb: "${final.postgresql_18}/bin/initdb",
+                    pg_ctl: "${final.postgresql_18}/bin/pg_ctl",
+                  });
+                }
+                export default getBinaries;
+                EOF
+
+                      # Keep the unix socket in the data dir; /run/postgresql is not
+                      # writable for unprivileged users.
+                      substituteInPlace "$(dirname "$embedded")/index.js" \
+                        --replace-fail "...this.options.postgresFlags," \
+                          "'-k', this.options.databaseDir, ...this.options.postgresFlags,"
+                    done < <(find $out/lib/node_modules -path '*/embedded-postgres/dist/binary.js')
+
+                    # Drop the now unused FHS-linked binaries.
+                    while IFS= read -r scope; do
+                      find "$scope" -mindepth 1 -maxdepth 1 ! -name symlink-reader -exec rm -rf {} +
+                    done < <(find $out/lib/node_modules -path '*/node_modules/@embedded-postgres' -type d)
+              '';
+            };
           };
         })
         # Blackmagic re-uploaded the 21.1 archive without bumping the version,
