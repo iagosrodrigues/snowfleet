@@ -9,11 +9,12 @@ _: {
           background-opacity = 1;
           command = lib.getExe pkgs.nushell;
           font-family = [
+            "Cascadia Code"
             "Google Sans Code"
             "Suisse Int'l Mono"
             "Symbols Nerd Font"
           ];
-          font-size = 14;
+          font-size = 18;
           theme = "Gruvbox Material";
         };
       };
