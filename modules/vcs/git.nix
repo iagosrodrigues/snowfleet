@@ -130,25 +130,6 @@ _: {
         difftool."vimdiff".cmd = "nvim -d $LOCAL $REMOTE -c 'wincmd w' -c 'wincmd L'";
         difftool.prompt = false;
 
-        interactive.diffFilter = "delta --color-only --features=interactive";
-
-        delta = {
-          navigate = true;
-          features = "decorations";
-          light = false;
-        };
-
-        delta."interactive"."keep-plus-minus-markers" = false;
-
-        delta."decorations" = {
-          "commit-decoration-style" = "blue ol";
-          "commit-style" = "raw";
-          "file-style" = "omit";
-          "hunk-header-decoration-style" = "blue box";
-          "hunk-header-file-style" = "red";
-          "hunk-header-line-number-style" = "#067a00";
-          "hunk-header-style" = "file line-number syntax";
-        };
         color = {
           "branch" = {
             current = "green bold";
