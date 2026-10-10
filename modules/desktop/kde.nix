@@ -63,9 +63,6 @@
           ".local/share/plasma"
           ".local/share/kwalletd"
         ];
-        persistence."/persist".files = [
-          ".local/share/recently-used.xbel"
-        ];
       };
 
       programs.plasma = {
