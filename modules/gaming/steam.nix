@@ -39,6 +39,9 @@ _: {
       # Heroic keeps store logins, the installed-games database and its
       # bundled legendary/gogdl/nile config under a single Electron dir.
       ".config/heroic"
+      # Native Cheat Engine keeps its registry (incl. the CEPatreon session)
+      # in reg.xml here; without it every boot asks for the Patreon login.
+      ".config/Cheat Engine"
       # Heroic's defaultInstallPath — game files and their wine prefixes.
       "Games"
     ];
