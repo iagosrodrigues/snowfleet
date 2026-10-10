@@ -4,10 +4,8 @@ _: {
       bash.enable = true;
       direnv = {
         enable = true;
-        mise.enable = true;
         nix-direnv.enable = true;
       };
-      mise.enable = true;
     };
 
     home.persistence."/persist".directories = [
