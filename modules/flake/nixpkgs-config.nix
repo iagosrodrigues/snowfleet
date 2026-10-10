@@ -75,19 +75,6 @@
             };
           };
         })
-        # Blackmagic re-uploaded the 21.1 archive without bumping the version,
-        # so the fixed-output hash in nixpkgs is stale until
-        # https://github.com/NixOS/nixpkgs/pull/562336 reaches nixos-unstable.
-        # Re-evaluate the upstream package.nix with the corrected studio hash.
-        # Drop this overlay once the PR lands.
-        (final: _prev: {
-          davinci-resolve-studio = final.callPackage (builtins.toFile "davinci-resolve.nix" (
-            builtins.replaceStrings
-              [ "sha256-D5RjUukwKMpULrDfMJOPsPWW9FxhQ/IUMh76u5JLytA=" ]
-              [ "sha256-P+zu8/OuFcDcIkwV3UMq0qg9U2JEGRkKDP+VLQesZjw=" ]
-              (builtins.readFile "${inputs.nixpkgs}/pkgs/by-name/da/davinci-resolve/package.nix")
-          )) { studioVariant = true; };
-        })
         (final: _prev: {
           claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
