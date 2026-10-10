@@ -62,6 +62,9 @@
           ".local/share/kscreen"
           ".local/share/plasma"
           ".local/share/kwalletd"
+          # xdg-desktop-portal permission store: remembers "Allow restoring on
+          # future sessions" grants (remote desktop, screencast, …).
+          ".local/share/flatpak/db"
         ];
         # Global shortcuts, incl. those apps register through the portal
         # (1Password). Symlink, not bind mount: KConfig saves by rename.
