@@ -28,9 +28,17 @@
       imports = [ inputs.plasma-manager.homeModules.plasma-manager ];
 
       home = {
-        packages = [
-          pkgs.macos-goldengate-cursor
-        ];
+        # Cursor (matches programs.plasma.workspace.cursor below). Links the
+        # theme into ~/.icons and ~/.local/share/icons: sandboxes that share
+        # $HOME but not /etc/profiles (Steam's pressure-vessel runtime, umu)
+        # cannot see the profile copy and fall back to another theme.
+        # Theme ships nominal sizes 24-120 (incl. 64); 64 renders without rescaling.
+        pointerCursor = {
+          enable = true;
+          package = pkgs.macos-goldengate-cursor;
+          name = "macOS-GoldenGate";
+          size = 30;
+        };
 
         sessionVariables = {
           # Wayland compatibility for Electron / Firefox / Qt / GTK apps
@@ -38,10 +46,6 @@
           MOZ_ENABLE_WAYLAND = "1";
           QT_QPA_PLATFORM = "wayland";
           GDK_BACKEND = "wayland";
-          # Cursor (matches programs.plasma.workspace.cursor below)
-          XCURSOR_THEME = "macOS-GoldenGate";
-          # Theme ships nominal sizes 24-120 (incl. 64); 64 renders without rescaling.
-          XCURSOR_SIZE = "64";
         };
 
         file.".XCompose".text = ''
