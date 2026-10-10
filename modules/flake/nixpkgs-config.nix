@@ -26,6 +26,22 @@
         (final: _prev: {
           llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system} or { };
         })
+        # Hermes bundles the Honcho plugin but omits its optional Python SDK.
+        # Add it to both the CLI closure and the Python used by TUI workers.
+        (final: prev: {
+          honcho-ai = final.callPackage ../../pkgs/honcho-ai.nix { };
+          llm-agents = prev.llm-agents // {
+            hermes-agent = prev.llm-agents.hermes-agent.overridePythonAttrs (old: {
+              dependencies = old.dependencies ++ [ final.honcho-ai ];
+              makeWrapperArgs = old.makeWrapperArgs ++ [
+                "--set"
+                "HERMES_PYTHON"
+                "${final.python3.withPackages (_: old.dependencies ++ [ final.honcho-ai ])}/bin/python3"
+              ];
+              pythonImportsCheck = old.pythonImportsCheck ++ [ "honcho" ];
+            });
+          };
+        })
         # Blackmagic re-uploaded the 21.1 archive without bumping the version,
         # so the fixed-output hash in nixpkgs is stale until
         # https://github.com/NixOS/nixpkgs/pull/562336 reaches nixos-unstable.
