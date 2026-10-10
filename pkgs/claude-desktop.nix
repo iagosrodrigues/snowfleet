@@ -29,6 +29,7 @@
   nspr,
   nss,
   pango,
+  pipewire,
   systemd,
   libayatana-appindicator,
   xdg-utils,
@@ -44,13 +45,13 @@
 }:
 
 let
-  version = "2.7032.0";
+  version = "2.31226.1";
 
   # Official Anthropic apt repository. The .deb bundles its own Electron
   # runtime, so we only extract it and repair the ELF interpreter / rpaths.
   src = fetchurl {
     url = "https://downloads.claude.ai/claude-desktop/apt/stable/pool/main/c/claude-desktop/claude-desktop_${version}_amd64.deb";
-    hash = "sha256-Hn9FBLylsvay08QSPRRdcnZH538u4tBGhQcR5h59exE=";
+    hash = "sha256-Wpvr38sd9s44dns3Pzp/q/dxVqLd2KP10Elh2lveMF4=";
   };
 in
 stdenv.mkDerivation {
@@ -86,6 +87,7 @@ stdenv.mkDerivation {
     nspr
     nss
     pango
+    pipewire
     libayatana-appindicator
     libx11
     libxcomposite
