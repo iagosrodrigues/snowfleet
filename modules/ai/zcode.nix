@@ -2,7 +2,7 @@ _: {
   flake.modules.homeManager.zcode =
     { pkgs, ... }:
     {
-      home.packages = [ pkgs.zcode ];
+      home.packages = [ pkgs.llm-agents.zcode ];
 
       home.persistence."/persist".directories = [
         ".config/ZCode" # Electron userData (sessions, login, updater cache)

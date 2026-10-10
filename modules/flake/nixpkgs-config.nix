@@ -44,7 +44,6 @@
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
           macos-goldengate-cursor = final.callPackage ../../pkgs/macos-goldengate-cursor.nix { };
           proton-drive-cli = final.callPackage ../../pkgs/proton-drive-cli.nix { };
-          zcode = final.callPackage ../../pkgs/zcode.nix { };
           # TEMPORARILY DISABLED (disk space) together with the organice inputs
           # in flake.nix and the profile entry in hosts/hellplace/profiles.nix.
           # organice-proton-sidecar = final.callPackage ../../pkgs/organice-proton-sidecar.nix {
