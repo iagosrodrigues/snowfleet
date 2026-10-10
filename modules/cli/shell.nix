@@ -16,7 +16,7 @@ _: {
       };
     };
 
-  # Home-manager side: fish (login/SSH), nushell (Ghostty), starship, zoxide
+  # Home-manager side: fish (login/SSH), nushell (Ghostty), carapace, starship, zoxide
   flake.modules.homeManager.shell =
     { lib, pkgs, ... }:
     let
@@ -59,14 +59,27 @@ _: {
             # PATH is already a list here (nushell's default ENV_CONVERSIONS)
             $env.PATH = ($env.PATH | prepend $"($env.HOME)/.cargo/bin" | uniq)
           '';
+          # Carapace falls back to fish/zsh/bash completions for commands it lacks
+          environmentVariables.CARAPACE_BRIDGES = "fish,zsh,bash";
           settings = {
             show_banner = false;
             history = {
               file_format = "sqlite";
               sync_on_enter = true;
-              isolation = true;
+              isolation = false;
+            };
+            completions = {
+              algorithm = "fuzzy";
+              case_sensitive = false;
             };
           };
+        };
+
+        carapace = {
+          enable = true;
+          enableNushellIntegration = true;
+          # Keep fish's native completions when in fish
+          enableFishIntegration = false;
         };
 
         starship = {
