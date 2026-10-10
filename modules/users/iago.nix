@@ -38,6 +38,9 @@ in
       };
 
       fonts.fontconfig.enable = true;
+      # KDE fontinst (System Settings → Fonts) rewrites the first user fontconfig
+      # file in place, turning this symlink into a regular file; reclaim it.
+      xdg.configFile."fontconfig/conf.d/10-hm-fonts.conf".force = true;
     };
   };
 }
