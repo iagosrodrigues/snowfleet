@@ -63,6 +63,14 @@
           ".local/share/plasma"
           ".local/share/kwalletd"
         ];
+        # Global shortcuts, incl. those apps register through the portal
+        # (1Password). Symlink, not bind mount: KConfig saves by rename.
+        persistence."/persist".files = [
+          {
+            file = ".config/kglobalshortcutsrc";
+            method = "symlink";
+          }
+        ];
       };
 
       programs.plasma = {
