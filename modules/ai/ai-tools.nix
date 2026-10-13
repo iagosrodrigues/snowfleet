@@ -22,6 +22,7 @@ _: {
         sessionVariables.ORCA_CLI_COMMAND = "${pkgs.llm-agents.orca}/bin/orca";
 
         persistence."/persist".directories = [
+          ".agents" # shared agent skills (~/.agents/skills), e.g. installed by `rea setup`
           ".cache/huggingface"
           ".claude"
           ".config/Claude" # claude-desktop (login, sessions, MCP config)
@@ -31,6 +32,7 @@ _: {
           ".config/crush"
           ".crush"
           ".gemini"
+          ".grok" # grok (config.toml incl. MCP servers, hooks)
           ".hermes" # hermes-agent (HERMES_HOME: config.yaml, .env keys, state.db sessions, memories, skills, profiles)
           ".local/share/crush"
           ".local/share/opencode" # opencode (auth.json, sessions db)
