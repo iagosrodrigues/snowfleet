@@ -122,6 +122,7 @@ in
         obs-studio
         davinci-resolve
         mongodb-compass
+        reverse-engineering
       ];
     };
 
