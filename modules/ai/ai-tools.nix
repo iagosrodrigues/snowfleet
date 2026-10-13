@@ -14,7 +14,6 @@ _: {
           llm-agents.hermes-agent
           llm-agents.opencode2
           llm-agents.orca
-          llm-agents.paperclip
           llm-agents.pi
         ];
 
@@ -40,7 +39,6 @@ _: {
           ".local/share/orca" # orca managed claude/codex account homes
           ".orca" # orca keybindings.json, agent-hooks, drops, templates
           "orca" # orca default workspaceDir (~/orca/workspaces): the git worktrees it creates
-          ".paperclip" # paperclip instances: embedded postgres, storage, backups, secrets/master.key, logs
           ".pi"
         ];
       };

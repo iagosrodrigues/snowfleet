@@ -76,6 +76,7 @@ in
     ai = {
       nixos = with nixos; [
         ollama
+        paperclip
       ];
       hm = with hm; [
         # claude-desktop omitted: main installs via llm-agents (e9ba5d9)
@@ -86,6 +87,7 @@ in
         delta
         lmstudio
         ollama
+        paperclip
         zcode
       ];
     };
