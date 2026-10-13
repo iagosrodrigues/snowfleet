@@ -121,6 +121,7 @@ in
         proton-drive-cli
         obs-studio
         davinci-resolve
+        blender
         mongodb-compass
         reverse-engineering
       ];
