@@ -61,6 +61,11 @@ _: {
         ];
       };
 
+      # The RX 7800 XT cursor plane is 64x64. Since KWin 6.8.0 / kernel 7.2.11,
+      # cursors that fit on it (e.g. size 30 at scale 1) come out distorted;
+      # larger ones fall back to the software cursor, which renders fine.
+      environment.sessionVariables.KWIN_FORCE_SW_CURSOR = "1";
+
       i18n.inputMethod = {
         enable = true;
         type = "fcitx5";
