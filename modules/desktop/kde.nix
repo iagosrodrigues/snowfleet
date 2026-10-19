@@ -117,10 +117,10 @@
         kwin.effects.wobblyWindows.enable = true;
 
         workspace = {
-          lookAndFeel = "org.kde.breezedark.desktop";
-          colorScheme = "BreezeDark";
+          lookAndFeel = "org.kde.breeze.desktop";
+          colorScheme = "BreezeLight";
           widgetStyle = "breeze";
-          iconTheme = "breeze-dark";
+          iconTheme = "breeze";
           cursor = {
             theme = "macOS-GoldenGate";
             size = 30;
