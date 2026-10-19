@@ -127,6 +127,11 @@
           };
         };
 
+        fonts.fixedWidth = {
+          family = "Anthrosevka Mono";
+          pointSize = 10;
+        };
+
         panels = [
           {
             location = "bottom";
