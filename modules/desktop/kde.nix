@@ -44,12 +44,12 @@
         # theme into ~/.icons and ~/.local/share/icons: sandboxes that share
         # $HOME but not /etc/profiles (Steam's pressure-vessel runtime, umu)
         # cannot see the profile copy and fall back to another theme.
-        # Theme ships nominal sizes 24-120 (incl. 36); nominal sizes render without rescaling.
+        # Theme ships nominal sizes 24-120 (incl. 30); nominal sizes render without rescaling.
         pointerCursor = {
           enable = true;
           package = pkgs.macos-goldengate-cursor;
           name = "macOS-GoldenGate";
-          size = 36;
+          size = 30;
         };
 
         sessionVariables = {
@@ -123,7 +123,7 @@
           iconTheme = "breeze-dark";
           cursor = {
             theme = "macOS-GoldenGate";
-            size = 36;
+            size = 30;
           };
         };
 
