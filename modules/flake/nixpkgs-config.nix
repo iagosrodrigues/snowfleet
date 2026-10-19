@@ -76,6 +76,7 @@
           };
         })
         (final: _prev: {
+          anthrosevka-mono = final.callPackage ../../pkgs/anthrosevka-mono.nix { };
           claude-desktop = final.callPackage ../../pkgs/claude-desktop.nix { };
           helium-browser = final.callPackage ../../pkgs/helium-browser.nix { };
           macos-goldengate-cursor = final.callPackage ../../pkgs/macos-goldengate-cursor.nix { };

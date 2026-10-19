@@ -5,6 +5,7 @@ _: {
       fonts.packages = with pkgs; [
         _0xproto
         agave
+        anthrosevka-mono
         cascadia-code
         corefonts
         dejavu_fonts
