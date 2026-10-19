@@ -13,7 +13,7 @@ _: {
             "Symbols Nerd Font"
           ];
           font-size = 18;
-          theme = "Gruvbox Material";
+          theme = "Gruvbox Material Light";
         };
       };
     };
