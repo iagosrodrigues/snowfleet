@@ -9,6 +9,18 @@
         xserver.enable = false;
       };
 
+      # Baloo can start before KWin exports WAYLAND_DISPLAY; its extractor then
+      # aborts on every file (Qt finds no display). KWin's wrapper claims its
+      # bus name only after updating the activation environment.
+      # Raw unit: services.* would also pin a minimal PATH on the daemon.
+      systemd.user.units."kde-baloo.service" = {
+        overrideStrategy = "asDropin";
+        text = ''
+          [Unit]
+          After=plasma-kwin_wayland.service
+        '';
+      };
+
       environment.plasma6.excludePackages = with pkgs.kdePackages; [
         elisa
         khelpcenter
@@ -179,6 +191,10 @@
 
         configFile = {
           "kdeglobals"."KDE"."SingleClick".value = false;
+          # KWin must launch the input method itself to grant it the Wayland
+          # input-method protocol; an XDG-autostarted fcitx5 gets none.
+          "kwinrc"."Wayland"."InputMethod".value =
+            "/run/current-system/sw/share/applications/org.fcitx.Fcitx5.desktop";
         };
       };
     };
