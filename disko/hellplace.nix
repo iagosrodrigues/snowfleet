@@ -1,16 +1,5 @@
 {
   disko.devices = {
-    nodev = {
-      "/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "size=8G"
-          "noatime"
-          "defaults"
-          "mode=755"
-        ];
-      };
-    };
     disk = {
       nvme = {
         type = "disk";
@@ -51,6 +40,16 @@
                   type = "btrfs";
                   extraArgs = [ "-f" ];
                   subvolumes = {
+                    # Persistent root while RAM is tight (32G); return to a
+                    # tmpfs "/" after the RAM upgrade. /persist bind mounts
+                    # keep working either way.
+                    "@root" = {
+                      mountpoint = "/";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
                     "@nix" = {
                       mountpoint = "/nix";
                       mountOptions = [

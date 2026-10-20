@@ -39,6 +39,8 @@ in
         {
           networking.hostName = "hellplace";
           fileSystems."/persist".neededForBoot = true;
+          # Root is on disk: keep /tmp ephemeral.
+          boot.tmp.cleanOnBoot = true;
           i18n.extraLocales = [
             "en_US.UTF-8/UTF-8"
             "ja_JP.UTF-8/UTF-8"
