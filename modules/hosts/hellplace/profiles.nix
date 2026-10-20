@@ -80,6 +80,7 @@ in
       ];
       hm = with hm; [
         # claude-desktop omitted: main installs via llm-agents (e9ba5d9)
+        ai-memory
         ai-tools
         claude-work
         chatgpt-desktop
