@@ -44,7 +44,8 @@
         # theme into ~/.icons and ~/.local/share/icons: sandboxes that share
         # $HOME but not /etc/profiles (Steam's pressure-vessel runtime, umu)
         # cannot see the profile copy and fall back to another theme.
-        # Theme ships nominal sizes 24-120 (incl. 30); nominal sizes render without rescaling.
+        # KWin renders the theme's SVGs at any size; X11 clients use its XCursor
+        # sizes 24-120 (incl. 30), so keep the size on one of those.
         pointerCursor = {
           enable = true;
           package = pkgs.macos-goldengate-cursor;

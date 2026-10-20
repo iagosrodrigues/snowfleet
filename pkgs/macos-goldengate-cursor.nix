@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation {
   # tarball stays out of this public repo. Register it once per machine.
   src = requireFile {
     name = "macOS-GoldenGate.tar.gz";
-    hash = "sha256-s/82UXxG3zM9/MGiZV2Domhm8F4TZMgJ+Wr0a1htWUM=";
+    hash = "sha256-kTf0W4vgZD30ATSCgomNalW7KdpI4mVrbnTea3A5LD4=";
     message = ''
       Add the macOS GoldenGate cursor tarball to the Nix store:
         nix-store --add-fixed sha256 macOS-GoldenGate.tar.gz
@@ -34,7 +34,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "macOS GoldenGate cursor theme (nominal sizes 24-120)";
+    description = "macOS GoldenGate cursor theme (SVG, plus XCursor sizes 24-120)";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
   };
