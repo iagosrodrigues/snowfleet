@@ -56,7 +56,8 @@
           # Wayland compatibility for Electron / Firefox / Qt / GTK apps
           NIXOS_OZONE_WL = "1";
           MOZ_ENABLE_WAYLAND = "1";
-          QT_QPA_PLATFORM = "wayland";
+          # xcb fallback for apps bundling a Qt without the wayland plugin (DaVinci Resolve)
+          # QT_QPA_PLATFORM = "wayland;xcb";
           GDK_BACKEND = "wayland";
         };
 
