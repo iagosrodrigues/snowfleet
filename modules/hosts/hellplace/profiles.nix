@@ -69,6 +69,7 @@ in
       ];
       hm = with hm; [
         steam
+        eden
         vr
         godot
       ];
