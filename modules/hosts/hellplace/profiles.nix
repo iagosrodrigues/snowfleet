@@ -113,6 +113,7 @@ in
         # browsers
         brave
         firefox-nightly
+        google-chrome
         helium-browser
         # apps / media
         discord
