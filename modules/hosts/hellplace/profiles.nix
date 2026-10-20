@@ -30,6 +30,7 @@ in
         ssh
         tailscale
         virtualisation
+        platform-dns
       ];
       hm = with hm; [
         shell
